@@ -1,0 +1,73 @@
+.main {
+	--line-thickness: 2px;
+	--terminal-size: 8px;
+	bottom: 0;
+	left: var(--horizontal-indent);
+	/* We don't want to cause any additional 'dragenter' events */
+	pointer-events: none;
+	position: absolute;
+	right: 0;
+	top: 0;
+}
+
+/* Circle */
+.mainAbove::before,
+.mainBelow::before {
+	background: transparent;
+	border: var(--line-thickness) solid var(--indicator-color);
+	border-radius: 50%;
+	box-sizing: border-box;
+	content: '';
+	display: block;
+	height: var(--terminal-size);
+	left: 0;
+	position: absolute;
+	width: var(--terminal-size);
+	z-index: 2;
+}
+
+/* Line */
+.mainAbove::after,
+.mainBelow::after {
+	background: var(--indicator-color);
+	content: '';
+	display: block;
+	height: var(--line-thickness);
+	left: calc(var(--terminal-size) / 2); /* putting the line to the right of the terminal */
+	position: absolute;
+	right: 0;
+	z-index: 1;
+}
+
+.mainAbove::before {
+	top: 0;
+	/* move to position to be a 'cap' on the line */
+	transform: translate(
+		calc(-0.5 * var(--terminal-size)),
+		calc(-0.5 * var(--terminal-size))
+	);
+}
+
+.mainAbove::after {
+	top: calc(-0.5 * var(--line-thickness));
+}
+
+.mainBelow::before {
+	bottom: 0;
+	/* move to position to be a 'cap' on the line */
+	transform: translate(
+		calc(-0.5 * var(--terminal-size)),
+		calc(0.5 * var(--terminal-size))
+	);
+}
+
+.mainBelow::after {
+	bottom: calc(-0.5 * var(--line-thickness));
+}
+
+.mainOutline {
+	border-color: var(--indicator-color);
+	border-style: solid;
+	border-width: var(--line-thickness);
+	border-radius: 3px;
+}
