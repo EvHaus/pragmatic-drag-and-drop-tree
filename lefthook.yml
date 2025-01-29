@@ -1,0 +1,26 @@
+colors: false
+
+post-merge:
+  commands:
+    install:
+      run: bun i
+
+post-rebase:
+  commands:
+    install:
+      run: bun i
+
+pre-commit:
+  parallel: true
+  commands:
+    biome:
+      glob: "*.{js,jsx,ts,tsx}"
+      run: bun biome check --write {staged_files}
+      stage_fixed: true
+    prettier-package-json:
+      glob: "package.json"
+      run: bun prettier-package-json --use-tabs --write {staged_files}
+      stage_fixed: true
+    typescript:
+      glob: "*.{ts,tsx}"
+      run: bun tsc --project ./tsconfig.json --noEmit
