@@ -1,0 +1,36 @@
+.main {
+	align-items: center;
+	border-radius: 3px;
+	border: 0;
+	/* Without this Safari renders white text on drag */
+	color: currentColor;
+	cursor: pointer;
+	display: flex;
+	list-style: none;
+	gap: 2px;
+	margin: 0;
+	padding: 4px 0;
+	padding-left: var(--indent-level);
+	position: relative;
+}
+
+.idle:hover,
+.parentOfInstruction {
+	background: rgba(9, 30, 66, 0.06);
+}
+
+.dragging {
+	opacity: 0.4;
+}
+
+.toggleButton {
+	align-items: center;
+	background: transparent;
+	border: 0;
+	cursor: pointer;
+	display: inline-flex;
+	height: 16px;
+	justify-content: center;
+	padding: 0;
+	width: 16px;
+}
