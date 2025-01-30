@@ -31,7 +31,7 @@
 		"@types/react": "19.0.2",
 		"@types/react-dom": "19.0.3",
 		"@vitejs/plugin-react": "4.3.4",
-		"lefthook": "1.10.1",
+		"lefthook": "1.10.10",
 		"prettier-package-json": "2.8.0",
 		"react": "19.0.0",
 		"react-dom": "19.0.0",
