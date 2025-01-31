@@ -8,16 +8,8 @@ import { pointerOutsideOfPreview } from '@atlaskit/pragmatic-drag-and-drop/eleme
 import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/element/set-custom-native-drag-preview';
 import type { DragLocationHistory } from '@atlaskit/pragmatic-drag-and-drop/types';
 import type React from 'react';
-import {
-	Fragment,
-	useCallback,
-	useContext,
-	useEffect,
-	useRef,
-	useState,
-} from 'react';
+import { Fragment, useCallback, useEffect, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import { SortableTreeContext } from '../SortableTreeContext/SortableTreeContext';
 import {
 	applyInstructionBlock,
 	attachInstruction,
@@ -36,15 +28,20 @@ import { delay } from '../utilities';
 
 type PropsType<D extends DataType> = {
 	children: (props: RowPropsType<D>) => React.ReactNode;
+	draggedItem: ItemType<D> | null;
 	getAllowedDropInstructions: NonNullable<
 		SharedPropsType<D>['getAllowedDropInstructions']
 	>;
+	getPathToItem: (itemId: ItemType<D>['id']) => Array<ItemType<D>['id']>;
 	indentLevel: number;
 	indentSize: NonNullable<SharedPropsType<D>['indentSize']>;
+	indicatorType: NonNullable<SharedPropsType<D>['indicatorType']>;
 	item: ItemType<D>;
 	mode: ItemMode;
 	onExpandToggle?: SharedPropsType<D>['onExpandToggle'];
+	renderIndicator: NonNullable<SharedPropsType<D>['renderIndicator']>;
 	renderPreview: NonNullable<SharedPropsType<D>['renderPreview']>;
+	uniqueContextId: symbol;
 };
 
 function getParentLevelOfInstruction(instruction: Instruction): number {
@@ -59,21 +56,24 @@ function getParentLevelOfInstruction(instruction: Instruction): number {
 
 const SortableTreeItem = <D extends DataType>({
 	children,
+	draggedItem,
 	getAllowedDropInstructions,
+	getPathToItem,
 	indentLevel,
 	indentSize,
+	indicatorType,
 	item,
 	mode,
 	onExpandToggle,
+	renderIndicator,
 	renderPreview,
+	uniqueContextId,
 }: PropsType<D>) => {
 	const itemRef = useRef<HTMLElement>(null);
 
 	const [state, setState] = useState<DragStateType>('idle');
 	const [instruction, setInstruction] = useState<Instruction | null>(null);
 	const cancelExpandRef = useRef<(() => void) | null>(null);
-
-	const { uniqueContextId, getPathToItem } = useContext(SortableTreeContext);
 
 	const cancelExpand = useCallback(() => {
 		cancelExpandRef.current?.();
@@ -220,7 +220,11 @@ const SortableTreeItem = <D extends DataType>({
 				},
 				onDragLeave: () => {
 					cancelExpand();
-					setInstruction(null);
+					// rAF here removes the slight flash of the indicator as
+					// the cursor moves from one item over to another
+					requestAnimationFrame(() => {
+						setInstruction(null);
+					});
 				},
 				onDrop: () => {
 					cancelExpand();
@@ -249,31 +253,46 @@ const SortableTreeItem = <D extends DataType>({
 		uniqueContextId,
 	]);
 
-	useEffect(
-		function mount() {
-			return function unmount() {
-				cancelExpand();
-			};
-		},
-		[cancelExpand],
-	);
+	useEffect(() => {
+		return () => {
+			cancelExpand();
+		};
+	}, [cancelExpand]);
 
 	const subTreeId = `tree-item-${item.id}--subtree`;
 	const hasChildren = Boolean(item.items?.length);
 
 	return (
 		<Fragment>
+			{instruction?.type === 'reorder-above' && draggedItem
+				? renderIndicator({
+						indentLevel,
+						indentSize,
+						instruction,
+						item: draggedItem,
+					})
+				: null}
 			{children({
 				'aria-controls': hasChildren ? subTreeId : undefined,
 				'aria-expanded': hasChildren ? item.isOpen : undefined,
+				draggedItem,
 				indentLevel,
 				indentSize,
+				indicatorType,
 				instruction,
 				item,
 				itemRef,
 				onExpandToggle,
 				state,
 			})}
+			{instruction?.type === 'reorder-below' && draggedItem
+				? renderIndicator({
+						indentLevel,
+						indentSize,
+						instruction,
+						item: draggedItem,
+					})
+				: null}
 			{hasChildren && item.isOpen ? (
 				// TODO: Need to make this element configurable
 				<ul id={subTreeId} style={{ padding: 0 }}>
@@ -285,14 +304,19 @@ const SortableTreeItem = <D extends DataType>({
 						})();
 						return (
 							<SortableTreeItem<D>
+								draggedItem={draggedItem}
 								getAllowedDropInstructions={getAllowedDropInstructions}
+								getPathToItem={getPathToItem}
 								indentLevel={indentLevel + 1}
 								indentSize={indentSize}
+								indicatorType={indicatorType}
 								item={child}
 								key={child.id}
 								mode={childType}
 								onExpandToggle={onExpandToggle}
+								renderIndicator={renderIndicator}
 								renderPreview={renderPreview}
+								uniqueContextId={uniqueContextId}
 							>
 								{children}
 							</SortableTreeItem>

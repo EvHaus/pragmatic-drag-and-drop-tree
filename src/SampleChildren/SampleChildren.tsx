@@ -1,8 +1,8 @@
 import type React from 'react';
 import type { ChildPropsType } from '../types';
-import styles from './DefaultChildren.module.css';
+import styles from './SampleChildren.module.css';
 
-const DefaultChildren = ({ children, containerRef }: ChildPropsType) => (
+const SampleChildren = ({ children, containerRef }: ChildPropsType) => (
 	<ul
 		className={styles.main}
 		ref={containerRef as React.RefObject<HTMLUListElement | null>}
@@ -11,4 +11,4 @@ const DefaultChildren = ({ children, containerRef }: ChildPropsType) => (
 	</ul>
 );
 
-export default DefaultChildren;
+export default SampleChildren;

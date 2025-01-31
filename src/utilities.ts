@@ -32,6 +32,30 @@ export const findInTree = <Item extends ItemType>(
 	}
 };
 
+export const getPathToItem = <D extends DataType>({
+	current,
+	targetId,
+	parentIds = [],
+}: {
+	current: Array<ItemType<D>>;
+	targetId: ItemType<D>['id'];
+	parentIds?: Array<ItemType<D>['id']>;
+}): Array<ItemType<D>['id']> | undefined => {
+	for (const item of current) {
+		if (item.id === targetId) {
+			return parentIds;
+		}
+		const nested = getPathToItem({
+			current: item.items || [],
+			targetId: targetId,
+			parentIds: [...parentIds, item.id],
+		});
+		if (nested) {
+			return nested;
+		}
+	}
+};
+
 export const recursiveMap = <Item extends ItemType<DataType>>(
 	items: Array<Item>,
 	callback: (item: Item, parent?: Item) => Item | null | undefined,

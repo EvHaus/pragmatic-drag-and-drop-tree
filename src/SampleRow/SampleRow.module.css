@@ -11,7 +11,6 @@
 	margin: 0;
 	padding: 4px 0;
 	padding-left: var(--indent-level);
-	position: relative;
 }
 
 .idle:hover,
@@ -21,6 +20,18 @@
 
 .dragging {
 	opacity: 0.4;
+}
+
+.outline {
+	outline: 2px solid blue;
+}
+
+.indicator {
+	opacity: 0.5;
+}
+
+.hidden {
+	display: none;
 }
 
 .toggleButton {

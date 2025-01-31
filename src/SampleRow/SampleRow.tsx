@@ -1,12 +1,13 @@
-import DefaultDropIndicator from '../DefaultDropIndicator/DefaultDropIndicator';
 import type { DataType, RowPropsType } from '../types';
-import styles from './DefaultRow.module.css';
+import styles from './SampleRow.module.css';
 
-const DefaultRow = <D extends DataType>({
+const SampleRow = <D extends DataType>({
 	'aria-controls': ariaControls,
 	'aria-expanded': ariaExpanded,
+	draggedItem,
 	indentLevel,
 	indentSize,
+	indicatorType,
 	instruction,
 	item,
 	itemRef,
@@ -17,6 +18,9 @@ const DefaultRow = <D extends DataType>({
 		onExpandToggle?.({ event, item, isOpen: !item.isOpen });
 	};
 
+	// Don't render the dragged item when using ghost indicators
+	const isHidden = draggedItem?.id === item.id && indicatorType === 'ghost';
+
 	return (
 		<li
 			aria-controls={ariaControls}
@@ -26,6 +30,9 @@ const DefaultRow = <D extends DataType>({
 				state === 'idle' ? styles.idle : null,
 				state === 'dragging' ? styles.dragging : null,
 				state === 'parent-of-instruction' ? styles.parentOfInstruction : null,
+				state === 'indicator' ? styles.indicator : null,
+				instruction?.type === 'make-child' ? styles.outline : null,
+				isHidden ? styles.hidden : null,
 			]
 				.filter(Boolean)
 				.join(' ')}
@@ -48,9 +55,8 @@ const DefaultRow = <D extends DataType>({
 				<div className={styles.toggleButton} />
 			)}
 			{item.id}
-			{instruction ? <DefaultDropIndicator instruction={instruction} /> : null}
 		</li>
 	);
 };
 
-export default DefaultRow;
+export default SampleRow;
