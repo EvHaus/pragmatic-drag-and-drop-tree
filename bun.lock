@@ -5,7 +5,7 @@
       "name": "pragmatic-drag-and-drop-tree",
       "dependencies": {
         "@atlaskit/pragmatic-drag-and-drop": "1.5.0",
-        "@atlaskit/pragmatic-drag-and-drop-flourish": "1.1.3",
+        "@atlaskit/pragmatic-drag-and-drop-flourish": "1.2.0",
       },
       "devDependencies": {
         "@biomejs/biome": "1.9.4",
@@ -29,17 +29,17 @@
 
     "@ampproject/remapping": ["@ampproject/remapping@2.3.0", "", { "dependencies": { "@jridgewell/gen-mapping": "^0.3.5", "@jridgewell/trace-mapping": "^0.3.24" } }, "sha512-30iZtAPgz+LTIYoeivqYo853f02jBYSd5uGnGpkFV0M3xOt9aN73erkgYAmZU43x4VfqcnLxW9Kpg3R5LC4YYw=="],
 
-    "@atlaskit/ds-lib": ["@atlaskit/ds-lib@3.3.0", "", { "dependencies": { "@atlaskit/platform-feature-flags": "^0.3.0", "@babel/runtime": "^7.0.0", "bind-event-listener": "^3.0.0", "react-uid": "^2.2.0" }, "peerDependencies": { "react": "^16.8.0 || ^17.0.0 || ^18.0.0" } }, "sha512-8bgJRFvL4C9dOc3XQ0nJLze4OSXtfemmE2os2h/T80hSdQO57hPMnXB22Pl6nT/6nEP7kZ4kAH6hDuJ3vBUNPA=="],
+    "@atlaskit/ds-lib": ["@atlaskit/ds-lib@3.5.0", "", { "dependencies": { "@atlaskit/platform-feature-flags": "^0.3.0", "@babel/runtime": "^7.0.0", "bind-event-listener": "^3.0.0", "react-uid": "^2.2.0" }, "peerDependencies": { "react": "^16.8.0 || ^17.0.0 || ^18.0.0" } }, "sha512-gLLskaM7pidqWWJLL7TCan4n5yFKkdBrg5pOxF27EqoAImQGEFPQ5B1Z+1dWHkMVdhyJ2skBqizFXjqhvqiHeQ=="],
 
-    "@atlaskit/motion": ["@atlaskit/motion@1.9.3", "", { "dependencies": { "@atlaskit/ds-lib": "^3.2.0", "@babel/runtime": "^7.0.0", "@emotion/react": "^11.7.1", "bind-event-listener": "^3.0.0" }, "peerDependencies": { "react": "^16.8.0 || ^17.0.0 || ^18.0.0" } }, "sha512-DQplpASqBLtPyZUwRSdLW6z+SmDvyMZtGNw7LPTVtFbIdCEoTSbsI6K0hJJ4in8pdE26xv9NHm0FkbSuk84njw=="],
+    "@atlaskit/motion": ["@atlaskit/motion@1.10.0", "", { "dependencies": { "@atlaskit/ds-lib": "^3.5.0", "@babel/runtime": "^7.0.0", "@emotion/react": "^11.7.1", "bind-event-listener": "^3.0.0" }, "peerDependencies": { "react": "^16.8.0 || ^17.0.0 || ^18.0.0" } }, "sha512-RvEvCVjKQPIyhFmQdQGuLOxnimuz2LysAmZUS0J1QFJfjg0kfGeVGdLkE76HADkEG3lrk6jzN02SoouEoLFyvw=="],
 
     "@atlaskit/platform-feature-flags": ["@atlaskit/platform-feature-flags@0.3.0", "", { "dependencies": { "@babel/runtime": "^7.0.0" } }, "sha512-/0u5fFJ0Rw2j4M5wzsXgaHO6Ey12oekPCDTRvmmAIp4GO9T2Swbl80bavLAPSOmSHMhHTSuvRxiJveZXfQ21IQ=="],
 
     "@atlaskit/pragmatic-drag-and-drop": ["@atlaskit/pragmatic-drag-and-drop@1.5.0", "", { "dependencies": { "@babel/runtime": "^7.0.0", "bind-event-listener": "^3.0.0", "raf-schd": "^4.0.3" } }, "sha512-VnHcgOBALm+mbL9CoJPI6wBNQeB0is+CkejdfAlaP8RfBoELe+0sQtE8j4Z4fPRqDzo11OEqUYKHkmx4Ttzozg=="],
 
-    "@atlaskit/pragmatic-drag-and-drop-flourish": ["@atlaskit/pragmatic-drag-and-drop-flourish@1.1.3", "", { "dependencies": { "@atlaskit/motion": "^1.9.0", "@atlaskit/tokens": "^3.0.0", "@babel/runtime": "^7.0.0" }, "peerDependencies": { "react": "^16.8.0 || ^17.0.0 || ^18.0.0" } }, "sha512-pBVwD8oo4dVsOCavIxqitVg3XucG1HYH/qTJP5zRt36r1ErJ23x9iLx9X7Zr62ZJRlsCZzz7esHNGPbfr5TNAQ=="],
+    "@atlaskit/pragmatic-drag-and-drop-flourish": ["@atlaskit/pragmatic-drag-and-drop-flourish@1.2.0", "", { "dependencies": { "@atlaskit/motion": "^1.10.0", "@atlaskit/tokens": "^3.3.0", "@babel/runtime": "^7.0.0" }, "peerDependencies": { "react": "^16.8.0 || ^17.0.0 || ^18.0.0" } }, "sha512-initHu2OomEvFg1YAmjsr+aXi4efl28HsJytT8nrQZ4+xqCok+XT1UOxMtB24hkbT6opbcD7y+OVgDAl38tSTA=="],
 
-    "@atlaskit/tokens": ["@atlaskit/tokens@3.2.0", "", { "dependencies": { "@atlaskit/ds-lib": "^3.3.0", "@atlaskit/platform-feature-flags": "^0.3.0", "@babel/runtime": "^7.0.0", "@babel/traverse": "^7.23.2", "@babel/types": "^7.20.0", "bind-event-listener": "^3.0.0" }, "peerDependencies": { "react": "^16.8.0 || ^17.0.0 || ^18.0.0" } }, "sha512-zOKf/5wvU9TlDkM5qmrPoROTtPrP3OMrzZ5AszWeA/YPRCAbgsR2aVr239wE6m/C0ZReQk5fOKIlogxJlugRnw=="],
+    "@atlaskit/tokens": ["@atlaskit/tokens@3.3.0", "", { "dependencies": { "@atlaskit/ds-lib": "^3.5.0", "@atlaskit/platform-feature-flags": "^0.3.0", "@babel/runtime": "^7.0.0", "@babel/traverse": "^7.23.2", "@babel/types": "^7.20.0", "bind-event-listener": "^3.0.0" }, "peerDependencies": { "react": "^16.8.0 || ^17.0.0 || ^18.0.0" } }, "sha512-pCJfpxn0TRUdwT8G0jlD3wIBgE7vt+0OFpp8Qu0KI4WBg9ea3cuv+4QBNc8il1W3cXT+jP4rstpVts/cGCa6JQ=="],
 
     "@babel/code-frame": ["@babel/code-frame@7.26.2", "", { "dependencies": { "@babel/helper-validator-identifier": "^7.25.9", "js-tokens": "^4.0.0", "picocolors": "^1.0.0" } }, "sha512-RJlIHRueQgwWitWgF8OdFYGZX328Ax5BCemNGlqHfplnRT9ESi8JkFlvaVYbS+UubVY6dpv87Fs2u5M29iNFVQ=="],
 
