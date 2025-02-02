@@ -7,5 +7,5 @@
 		"outDir": "dist"
 	},
 	"extends": "./tsconfig.json",
-	"include": ["src/**/*.ts", "src/**/*.tsx"]
+	"include": ["src/**/*.ts", "src/**/*.tsx", "custom.d.ts"]
 }
