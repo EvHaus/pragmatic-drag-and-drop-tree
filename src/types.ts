@@ -2,6 +2,7 @@ import type {
 	DropTargetRecord,
 	ElementDragType,
 } from '@atlaskit/pragmatic-drag-and-drop/types';
+import type { JSX } from 'react';
 import type { Instruction } from './tree-item-hitbox';
 
 export type DataType = Record<string, unknown>;
@@ -61,7 +62,7 @@ export type PreviewPropsType<D extends DataType> = {
 };
 
 export type PropsType<D extends DataType> = {
-	children?: (childProps: ChildPropsType) => React.ReactNode;
+	children?: (childProps: ChildPropsType) => JSX.Element;
 	getAllowedDropInstructions?: (
 		payload: Pick<DropPayloadType<D>, 'source' | 'target'>,
 	) => Array<Instruction['type']>;

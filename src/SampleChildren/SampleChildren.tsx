@@ -5,7 +5,7 @@ import styles from './SampleChildren.module.css';
 const SampleChildren = ({ children, containerRef }: ChildPropsType) => (
 	<ul
 		className={styles.main}
-		ref={containerRef as React.RefObject<HTMLUListElement | null>}
+		ref={containerRef as React.RefObject<HTMLUListElement>}
 	>
 		{children}
 	</ul>
