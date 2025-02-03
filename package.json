@@ -23,6 +23,7 @@
 		"test": "bun lint",
 		"typescript": "tsc --noEmit"
 	},
+	"types": "./dist/index.d.ts",
 	"dependencies": {
 		"@atlaskit/pragmatic-drag-and-drop": "^1.5.0",
 		"@atlaskit/pragmatic-drag-and-drop-flourish": "^1.2.0"

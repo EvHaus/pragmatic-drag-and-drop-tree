@@ -8,6 +8,9 @@
 			"cssModules": true
 		}
 	},
+	"files": {
+		"ignore": ["dist"]
+	},
 	"formatter": {
 		"enabled": true
 	},
