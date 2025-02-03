@@ -49,5 +49,10 @@
 			"ms": "Needed for semantic-release for some reason",
 			"semantic-release": "Need to lock to pre-23.0.0 until oven-sh/setup-bun supports Node 20+, otherwise 'Release' builds fail with '[semantic-release]: node version >=20.8.1 is required. Found v18.19.0.'"
 		}
+	},
+	"release": {
+		"branches": [
+			"main"
+		]
 	}
 }
