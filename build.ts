@@ -10,6 +10,8 @@ async function build() {
 		external: [
 			'@atlaskit/pragmatic-drag-and-drop',
 			'@atlaskit/pragmatic-drag-and-drop-flourish',
+			'react',
+			'react-dom',
 		],
 		outdir: './dist',
 	});
