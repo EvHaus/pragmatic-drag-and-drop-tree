@@ -324,6 +324,18 @@ const SortableTreeItem = <D extends DataType>({
 							</SortableTreeItem>
 						);
 					})}
+					{/* TODO: Will users want to customize the placement of this? Right now it always goes to the bottom */}
+					{instruction?.type === 'make-child' &&
+					indicatorType === 'ghost' &&
+					draggedItem &&
+					renderIndicator
+						? renderIndicator({
+								indentLevel: indentLevel + 1,
+								indentSize,
+								instruction: null,
+								item: draggedItem,
+							})
+						: null}
 				</ul>
 			) : null}
 		</Fragment>

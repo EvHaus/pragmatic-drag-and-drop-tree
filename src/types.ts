@@ -55,8 +55,10 @@ export type RowPropsType<D extends DataType> = {
 
 export type IndicatorPropsType<D extends DataType> = Pick<
 	RowPropsType<D>,
-	'instruction' | 'indentLevel' | 'indentSize' | 'item'
->;
+	'instruction' | 'indentLevel' | 'indentSize'
+> & {
+	item?: ItemType<D> | null;
+};
 
 export type PreviewPropsType<D extends DataType> = {
 	item: ItemType<D>;
