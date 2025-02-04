@@ -4,6 +4,7 @@ biome.json
 build.ts
 bun.lock
 bunfig.toml
+custom.d.ts
 examples
 lefthook.yml
 README.md
@@ -11,3 +12,4 @@ src
 tsconfig.json
 tsconfig.build.json
 tsconfig.tsbuildinfo
+vite.config.ts
