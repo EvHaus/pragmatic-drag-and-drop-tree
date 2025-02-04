@@ -1,5 +1,8 @@
+import type {
+	DataType,
+	IndicatorPropsType,
+} from 'pragmatic-drag-and-drop-tree';
 import SampleRow from '../SampleRow/SampleRow';
-import type { DataType, IndicatorPropsType } from '../types';
 
 const SampleDropGhostIndicator = ({
 	indentLevel,

@@ -1,4 +1,4 @@
-import type { DataType, PreviewPropsType } from '../types';
+import type { DataType, PreviewPropsType } from 'pragmatic-drag-and-drop-tree';
 import styles from './SamplePreview.module.css';
 
 const SamplePreview = ({ item }: PreviewPropsType<DataType>) => {

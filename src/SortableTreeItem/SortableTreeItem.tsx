@@ -7,7 +7,6 @@ import {
 import { pointerOutsideOfPreview } from '@atlaskit/pragmatic-drag-and-drop/element/pointer-outside-of-preview';
 import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/element/set-custom-native-drag-preview';
 import type { DragLocationHistory } from '@atlaskit/pragmatic-drag-and-drop/types';
-import type React from 'react';
 import { Fragment, useCallback, useEffect, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import {
@@ -21,13 +20,12 @@ import type {
 	DataType,
 	DragStateType,
 	ItemType,
-	RowPropsType,
 	PropsType as SharedPropsType,
 } from '../types';
 import { delay } from '../utilities';
 
 type PropsType<D extends DataType> = {
-	children: (props: RowPropsType<D>) => React.ReactNode;
+	children: SharedPropsType<D>['renderRow'];
 	draggedItem: ItemType<D> | null;
 	getAllowedDropInstructions: NonNullable<
 		SharedPropsType<D>['getAllowedDropInstructions']
@@ -39,8 +37,8 @@ type PropsType<D extends DataType> = {
 	item: ItemType<D>;
 	mode: ItemMode;
 	onExpandToggle?: SharedPropsType<D>['onExpandToggle'];
-	renderIndicator: NonNullable<SharedPropsType<D>['renderIndicator']>;
-	renderPreview: NonNullable<SharedPropsType<D>['renderPreview']>;
+	renderIndicator: SharedPropsType<D>['renderIndicator'];
+	renderPreview: SharedPropsType<D>['renderPreview'];
 	uniqueContextId: symbol;
 };
 
@@ -131,15 +129,17 @@ const SortableTreeItem = <D extends DataType>({
 					uniqueContextId,
 				}),
 				onGenerateDragPreview: ({ nativeSetDragImage }) => {
-					setCustomNativeDragPreview({
-						getOffset: pointerOutsideOfPreview({ x: '8px', y: '8px' }),
-						render: ({ container }) => {
-							const root = createRoot(container);
-							root.render(renderPreview({ item }));
-							return () => root.unmount();
-						},
-						nativeSetDragImage,
-					});
+					if (renderPreview) {
+						setCustomNativeDragPreview({
+							getOffset: pointerOutsideOfPreview({ x: '8px', y: '8px' }),
+							render: ({ container }) => {
+								const root = createRoot(container);
+								root.render(renderPreview({ item }));
+								return () => root.unmount();
+							},
+							nativeSetDragImage,
+						});
+					}
 				},
 				onDragStart: ({ source }) => {
 					setState('dragging');
@@ -265,7 +265,7 @@ const SortableTreeItem = <D extends DataType>({
 
 	return (
 		<Fragment>
-			{instruction?.type === 'reorder-above' && draggedItem
+			{instruction?.type === 'reorder-above' && draggedItem && renderIndicator
 				? renderIndicator({
 						indentLevel,
 						indentSize,
@@ -273,7 +273,7 @@ const SortableTreeItem = <D extends DataType>({
 						item: draggedItem,
 					})
 				: null}
-			{children({
+			{children?.({
 				'aria-controls': hasChildren ? subTreeId : undefined,
 				'aria-expanded': hasChildren ? item.isOpen : undefined,
 				draggedItem,
@@ -287,7 +287,7 @@ const SortableTreeItem = <D extends DataType>({
 				onExpandToggle,
 				state,
 			})}
-			{instruction?.type === 'reorder-below' && draggedItem
+			{instruction?.type === 'reorder-below' && draggedItem && renderIndicator
 				? renderIndicator({
 						indentLevel,
 						indentSize,

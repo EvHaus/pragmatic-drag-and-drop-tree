@@ -7,10 +7,10 @@
 	cursor: pointer;
 	display: flex;
 	list-style: none;
+	height: 30px;
 	gap: 2px;
 	margin: 0;
-	padding: 2px 0;
-	padding-left: var(--indent-level);
+	padding: 2px;
 }
 
 .idle:hover,
@@ -34,14 +34,28 @@
 	display: none;
 }
 
+.dragHandle {
+	padding: 2px 4px;
+}
+
+.dragHandle:focus-visible,
+.dragHandle:hover {
+	background: rgba(9, 30, 66, 0.06);
+}
+
+.content {
+	align-items: center;
+	display: flex;
+	margin-left: var(--indent-level);
+}
+
 .toggleButton {
 	align-items: center;
 	background: transparent;
 	border: 0;
 	cursor: pointer;
 	display: inline-flex;
-	height: 16px;
+	height: 24px;
 	justify-content: center;
-	padding: 0;
-	width: 16px;
+	width: 24px;
 }

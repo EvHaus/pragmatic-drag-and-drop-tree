@@ -2,11 +2,6 @@ import { triggerPostMoveFlash } from '@atlaskit/pragmatic-drag-and-drop-flourish
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
 import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import SampleChildren from '../SampleChildren/SampleChildren';
-import SampleDropGhostIndicator from '../SampleDropGhostIndicator/SampleDropGhostIndicator';
-import SampleDropLineIndicator from '../SampleDropLineIndicator/SampleDropLineIndicator';
-import SamplePreview from '../SamplePreview/SamplePreview';
-import SampleRow from '../SampleRow/SampleRow';
 import SortableTreeItem from '../SortableTreeItem/SortableTreeItem';
 import { extractInstruction } from '../tree-item-hitbox';
 import type { Instruction, ItemMode } from '../tree-item-hitbox';
@@ -20,17 +15,20 @@ const defaultGetAllowedDropInstructions = () => [
 	'reparent' as const,
 ];
 
+// TODO: Find a better way to handle empty renderers
+const NOOP = () => <div />;
+
 const SortableTree = <D extends DataType>({
 	children,
 	getAllowedDropInstructions = defaultGetAllowedDropInstructions,
 	indentSize = 16,
-	indicatorType = 'ghost',
+	indicatorType = 'line',
 	items,
 	onDrop,
 	onExpandToggle,
 	renderIndicator,
-	renderPreview = SamplePreview,
-	renderRow = SampleRow,
+	renderPreview,
+	renderRow,
 }: PropsType<D>) => {
 	const [lastAction, setLastAction] = useState<DropPayloadType<D> | null>(null);
 	const [draggedItem, setDraggedItem] = useState<ItemType<D> | null>(null);
@@ -94,7 +92,7 @@ const SortableTree = <D extends DataType>({
 		);
 	}, [onDrop, uniqueContextId]);
 
-	const childRenderer = children ?? SampleChildren;
+	const childRenderer = children ?? (() => null);
 
 	return childRenderer({
 		children: items.map((item, index, array) => {
@@ -124,12 +122,8 @@ const SortableTree = <D extends DataType>({
 						getPathToItem<D>({ current: lastStateRef.current, targetId }) ?? []
 					}
 					onExpandToggle={onExpandToggle}
-					renderIndicator={
-						(renderIndicator ?? indicatorType === 'ghost')
-							? SampleDropGhostIndicator
-							: SampleDropLineIndicator
-					}
-					renderPreview={renderPreview}
+					renderIndicator={renderIndicator ?? NOOP}
+					renderPreview={renderPreview ?? NOOP}
 					uniqueContextId={uniqueContextId}
 				>
 					{renderRow}

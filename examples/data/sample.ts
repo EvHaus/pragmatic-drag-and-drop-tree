@@ -17,7 +17,7 @@ export const SAMPLE_TREE_DATA: Array<ItemType<DataType>> = [
 						id: 'honda',
 					},
 				],
-				data: { name: 'japanese', type: 'category' },
+				data: { name: 'Japanese', type: 'category' },
 				id: 'japanese',
 			},
 			{
@@ -27,7 +27,7 @@ export const SAMPLE_TREE_DATA: Array<ItemType<DataType>> = [
 						id: 'tesla',
 					},
 				],
-				data: { name: 'american', type: 'category' },
+				data: { name: 'American', type: 'category' },
 				id: 'american',
 			},
 			{
@@ -37,7 +37,7 @@ export const SAMPLE_TREE_DATA: Array<ItemType<DataType>> = [
 						id: 'ferarri',
 					},
 				],
-				data: { name: 'european', type: 'category' },
+				data: { name: 'European', type: 'category' },
 				id: 'european',
 			},
 		],

@@ -1,4 +1,5 @@
-import type { DataType, RowPropsType } from '../types';
+import type { RowPropsType } from 'pragmatic-drag-and-drop-tree';
+import type { DataType } from '../../data/sample';
 import styles from './SampleRow.module.css';
 
 const SampleRow = <D extends DataType>({
@@ -14,7 +15,10 @@ const SampleRow = <D extends DataType>({
 	itemRef,
 	onExpandToggle,
 	state,
-}: RowPropsType<D>) => {
+	withDragHandle = false,
+}: RowPropsType<D> & {
+	withDragHandle?: boolean;
+}) => {
 	const handleExpandToggleClick = (event: React.MouseEvent) => {
 		onExpandToggle?.({ event, item, isOpen: !item.isOpen });
 	};
@@ -44,31 +48,38 @@ const SampleRow = <D extends DataType>({
 			}
 			ref={itemRef as React.RefObject<HTMLLIElement>}
 		>
-			<div ref={dragHandleRef as React.RefObject<HTMLDivElement>}>
-				<svg width='24' height='24' viewBox='0 0 24 24' role='presentation'>
-					<title>Drag Handle</title>
-					<g fill='currentcolor'>
-						<circle cx='10' cy='8' r='1' />
-						<circle cx='14' cy='8' r='1' />
-						<circle cx='10' cy='16' r='1' />
-						<circle cx='14' cy='16' r='1' />
-						<circle cx='10' cy='12' r='1' />
-						<circle cx='14' cy='12' r='1' />
-					</g>
-				</svg>
-			</div>
-			{onExpandToggle && item.items?.length ? (
-				<button
-					className={styles.toggleButton}
-					onClick={handleExpandToggleClick}
-					type='button'
+			{withDragHandle ? (
+				<div
+					className={styles.dragHandle}
+					ref={dragHandleRef as React.RefObject<HTMLDivElement>}
 				>
-					{item.isOpen ? '▼' : '►'}
-				</button>
-			) : (
-				<div className={styles.toggleButton} />
-			)}
-			{item.id}
+					<svg width='6' height='10' viewBox='0 0 6 10' role='presentation'>
+						<title>Drag Handle</title>
+						<g fill='currentcolor'>
+							<circle cx='1' cy='1' r='1' />
+							<circle cx='5' cy='1' r='1' />
+							<circle cx='1' cy='5' r='1' />
+							<circle cx='5' cy='5' r='1' />
+							<circle cx='1' cy='9' r='1' />
+							<circle cx='5' cy='9' r='1' />
+						</g>
+					</svg>
+				</div>
+			) : null}
+			<div className={styles.content}>
+				{onExpandToggle && item.items?.length ? (
+					<button
+						className={styles.toggleButton}
+						onClick={handleExpandToggleClick}
+						type='button'
+					>
+						{item.isOpen ? '▼' : '►'}
+					</button>
+				) : (
+					<div className={styles.toggleButton} />
+				)}
+				{item.data.name}
+			</div>
 		</li>
 	);
 };

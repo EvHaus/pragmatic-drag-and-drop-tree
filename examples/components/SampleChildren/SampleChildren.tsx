@@ -1,5 +1,5 @@
+import type { ChildPropsType } from 'pragmatic-drag-and-drop-tree';
 import type React from 'react';
-import type { ChildPropsType } from '../types';
 import styles from './SampleChildren.module.css';
 
 const SampleChildren = ({ children, containerRef }: ChildPropsType) => (
