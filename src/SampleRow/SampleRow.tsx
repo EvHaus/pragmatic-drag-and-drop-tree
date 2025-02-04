@@ -5,6 +5,7 @@ const SampleRow = <D extends DataType>({
 	'aria-controls': ariaControls,
 	'aria-expanded': ariaExpanded,
 	draggedItem,
+	dragHandleRef,
 	indentLevel,
 	indentSize,
 	indicatorType,
@@ -36,13 +37,26 @@ const SampleRow = <D extends DataType>({
 			]
 				.filter(Boolean)
 				.join(' ')}
-			ref={itemRef as React.RefObject<HTMLLIElement>}
 			style={
 				{
 					'--indent-level': `${indentLevel * indentSize}px`,
 				} as React.CSSProperties
 			}
+			ref={itemRef as React.RefObject<HTMLLIElement>}
 		>
+			<div ref={dragHandleRef as React.RefObject<HTMLDivElement>}>
+				<svg width='24' height='24' viewBox='0 0 24 24' role='presentation'>
+					<title>Drag Handle</title>
+					<g fill='currentcolor'>
+						<circle cx='10' cy='8' r='1' />
+						<circle cx='14' cy='8' r='1' />
+						<circle cx='10' cy='16' r='1' />
+						<circle cx='14' cy='16' r='1' />
+						<circle cx='10' cy='12' r='1' />
+						<circle cx='14' cy='12' r='1' />
+					</g>
+				</svg>
+			</div>
 			{onExpandToggle && item.items?.length ? (
 				<button
 					className={styles.toggleButton}

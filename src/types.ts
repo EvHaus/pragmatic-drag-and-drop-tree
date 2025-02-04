@@ -38,6 +38,7 @@ export type RowPropsType<D extends DataType> = {
 	'aria-controls'?: string;
 	'aria-expanded'?: boolean;
 	draggedItem: ItemType<D> | null;
+	dragHandleRef?: React.RefObject<HTMLElement | null>;
 	indentLevel: number;
 	indentSize: NonNullable<PropsType<D>['indentSize']>;
 	indicatorType: PropsType<D>['indicatorType'];

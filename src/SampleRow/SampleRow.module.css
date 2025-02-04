@@ -9,7 +9,7 @@
 	list-style: none;
 	gap: 2px;
 	margin: 0;
-	padding: 4px 0;
+	padding: 2px 0;
 	padding-left: var(--indent-level);
 }
 

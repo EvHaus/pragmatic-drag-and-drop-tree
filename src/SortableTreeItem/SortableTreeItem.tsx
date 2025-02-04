@@ -70,6 +70,7 @@ const SortableTreeItem = <D extends DataType>({
 	uniqueContextId,
 }: PropsType<D>) => {
 	const itemRef = useRef<HTMLElement>(null);
+	const dragHandleRef = useRef<HTMLElement>(null);
 
 	const [state, setState] = useState<DragStateType>('idle');
 	const [instruction, setInstruction] = useState<Instruction | null>(null);
@@ -123,7 +124,7 @@ const SortableTreeItem = <D extends DataType>({
 		return combine(
 			draggable({
 				canDrag: () => item.isDraggable || true,
-				element: itemRef.current,
+				element: dragHandleRef.current || itemRef.current,
 				getInitialData: () => ({
 					...item,
 					isOpenOnDragStart: item.isOpen,
@@ -276,6 +277,7 @@ const SortableTreeItem = <D extends DataType>({
 				'aria-controls': hasChildren ? subTreeId : undefined,
 				'aria-expanded': hasChildren ? item.isOpen : undefined,
 				draggedItem,
+				dragHandleRef,
 				indentLevel,
 				indentSize,
 				indicatorType,
