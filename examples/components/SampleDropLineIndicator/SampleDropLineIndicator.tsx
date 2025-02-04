@@ -1,7 +1,5 @@
-import type {
-	DataType,
-	IndicatorPropsType,
-} from 'pragmatic-drag-and-drop-tree';
+import type { IndicatorPropsType } from 'pragmatic-drag-and-drop-tree';
+import type { DataType } from '../../data/sample';
 import styles from './SampleDropLineIndicator.module.css';
 
 const SampleDropLineIndicator = ({

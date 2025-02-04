@@ -16,15 +16,17 @@ const SampleRow = <D extends DataType>({
 	onExpandToggle,
 	state,
 	withDragHandle = false,
-}: RowPropsType<D> & {
+}: Omit<RowPropsType<D>, 'item'> & {
+	item?: RowPropsType<D>['item'] | null;
 	withDragHandle?: boolean;
 }) => {
 	const handleExpandToggleClick = (event: React.MouseEvent) => {
+		if (!item) return;
 		onExpandToggle?.({ event, item, isOpen: !item.isOpen });
 	};
 
 	// Don't render the dragged item when using ghost indicators
-	const isHidden = draggedItem?.id === item.id && indicatorType === 'ghost';
+	const isHidden = draggedItem?.id === item?.id && indicatorType === 'ghost';
 
 	return (
 		<li
@@ -67,7 +69,7 @@ const SampleRow = <D extends DataType>({
 				</div>
 			) : null}
 			<div className={styles.content}>
-				{onExpandToggle && item.items?.length ? (
+				{onExpandToggle && item?.items?.length ? (
 					<button
 						className={styles.toggleButton}
 						onClick={handleExpandToggleClick}
@@ -78,7 +80,7 @@ const SampleRow = <D extends DataType>({
 				) : (
 					<div className={styles.toggleButton} />
 				)}
-				{item.data.name}
+				{item?.data?.name}
 			</div>
 		</li>
 	);
