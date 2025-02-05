@@ -75,7 +75,6 @@ const useTreeData = () => {
 			];
 
 			// Only folders can have children
-			// @ts-expect-error TODO: Fix me. Shouldn't require a ? for data
 			if (target.data.data.type === 'category')
 				return [...DEFAULT_ALLOWED_DROP_INSTRUCTIONS, 'make-child'];
 

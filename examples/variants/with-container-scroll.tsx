@@ -2,7 +2,6 @@ import SortableTree from 'pragmatic-drag-and-drop-tree';
 import SampleDropLineIndicator from '../components/SampleDropLineIndicator/SampleDropLineIndicator';
 import SamplePreview from '../components/SamplePreview/SamplePreview';
 import SampleRow from '../components/SampleRow/SampleRow';
-import type { DataType } from '../data/sample';
 import useLocalTreeData from '../data/useLocalTreeData';
 
 const WithLineIndicator = () => {
@@ -10,7 +9,7 @@ const WithLineIndicator = () => {
 		useLocalTreeData();
 
 	return (
-		<SortableTree<DataType>
+		<SortableTree
 			getAllowedDropInstructions={getAllowedDropInstructions}
 			items={items}
 			onDrop={handleDrop}
@@ -21,7 +20,7 @@ const WithLineIndicator = () => {
 		>
 			{({ children, containerRef }) => (
 				<ol
-					ref={containerRef as React.RefObject<HTMLOListElement>}
+					ref={containerRef}
 					style={{
 						border: '1px solid #aaa',
 						borderRadius: '4px',

@@ -33,7 +33,7 @@ const SortableTree = <D extends DataType>({
 	const [lastAction, setLastAction] = useState<DropPayloadType<D> | null>(null);
 	const [draggedItem, setDraggedItem] = useState<ItemType<D> | null>(null);
 
-	const containerRef = useRef<HTMLElement>(null);
+	const containerRef = useRef<HTMLElement | null>(null);
 	const lastStateRef = useRef<typeof items>(items);
 
 	const uniqueContextId = useMemo(() => Symbol('unique-id'), []);

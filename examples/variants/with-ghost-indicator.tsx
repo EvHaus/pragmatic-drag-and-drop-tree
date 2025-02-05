@@ -3,7 +3,6 @@ import SampleChildren from '../components/SampleChildren/SampleChildren';
 import SampleDropGhostIndicator from '../components/SampleDropGhostIndicator/SampleDropGhostIndicator';
 import SamplePreview from '../components/SamplePreview/SamplePreview';
 import SampleRow from '../components/SampleRow/SampleRow';
-import type { DataType } from '../data/sample';
 import useLocalTreeData from '../data/useLocalTreeData';
 
 const WithGhostIndicator = () => {
@@ -11,7 +10,7 @@ const WithGhostIndicator = () => {
 		useLocalTreeData();
 
 	return (
-		<SortableTree<DataType>
+		<SortableTree
 			getAllowedDropInstructions={getAllowedDropInstructions}
 			indicatorType='ghost'
 			items={items}

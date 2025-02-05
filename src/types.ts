@@ -5,7 +5,7 @@ import type {
 import type { JSX } from 'react';
 import type { Instruction } from './tree-item-hitbox';
 
-export type DataType = Record<string, unknown>;
+export type DataType = Record<string, unknown> | undefined;
 
 export type DragStateType =
 	| 'idle'
@@ -20,10 +20,15 @@ export type DropPayloadType<D extends DataType> = {
 	target: DropTargetRecord & { data: ItemType<D> };
 };
 
-// TODO: Should this be 'extends'?
-export type ItemType<D = DataType> = {
-	data?: D;
-	id: string | number;
+type IndentSizeType = number;
+type IndicatorTypeType = 'ghost' | 'line';
+
+export type ItemType<
+	D extends DataType = DataType,
+	I extends string | number = string | number,
+> = {
+	data: D;
+	id: I;
 	isDraggable?: boolean;
 	isOpen?: boolean;
 	items?: Array<ItemType<D>>;
@@ -31,20 +36,23 @@ export type ItemType<D = DataType> = {
 
 export type ChildPropsType = {
 	children: React.ReactNode;
-	containerRef: React.RefObject<HTMLElement | null>;
+	// biome-ignore lint/suspicious/noExplicitAny: Can't figure how to make this HTMLElement
+	containerRef: React.RefObject<any>;
 };
 
 export type RowPropsType<D extends DataType> = {
 	'aria-controls'?: string;
 	'aria-expanded'?: boolean;
 	draggedItem: ItemType<D> | null;
-	dragHandleRef?: React.RefObject<HTMLElement | null>;
+	// biome-ignore lint/suspicious/noExplicitAny: Can't figure how to make this HTMLElement
+	dragHandleRef?: React.RefObject<any>;
 	indentLevel: number;
-	indentSize: NonNullable<PropsType<D>['indentSize']>;
-	indicatorType: PropsType<D>['indicatorType'];
+	indentSize: IndentSizeType;
+	indicatorType: IndicatorTypeType;
 	instruction: Instruction | null;
 	item: ItemType<D>;
-	itemRef?: React.RefObject<HTMLElement | null>;
+	// biome-ignore lint/suspicious/noExplicitAny: Can't figure how to make this HTMLElement
+	itemRef?: React.RefObject<any>;
 	onExpandToggle?: (info: {
 		event?: React.MouseEvent | React.KeyboardEvent;
 		item: ItemType<D>;
@@ -69,10 +77,8 @@ export type PropsType<D extends DataType> = {
 	getAllowedDropInstructions?: (
 		payload: Pick<DropPayloadType<D>, 'source' | 'target'>,
 	) => Array<Instruction['type']>;
-	indentSize?: number;
-	indicatorType?: 'ghost' | 'line';
-	// TODO: Need a way to do this.
-	// isFirstLevelHidden?: boolean;
+	indentSize?: IndentSizeType;
+	indicatorType?: IndicatorTypeType;
 	items: Array<ItemType<D>>;
 	onDrop?: (payload: DropPayloadType<D>) => void;
 	onExpandToggle?: RowPropsType<D>['onExpandToggle'];

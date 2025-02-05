@@ -67,8 +67,8 @@ const SortableTreeItem = <D extends DataType>({
 	renderPreview,
 	uniqueContextId,
 }: PropsType<D>) => {
-	const itemRef = useRef<HTMLElement>(null);
-	const dragHandleRef = useRef<HTMLElement>(null);
+	const itemRef = useRef<HTMLElement | null>(null);
+	const dragHandleRef = useRef<HTMLElement | null>(null);
 
 	const [state, setState] = useState<DragStateType>('idle');
 	const [instruction, setInstruction] = useState<Instruction | null>(null);
