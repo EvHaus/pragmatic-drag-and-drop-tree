@@ -6,6 +6,7 @@ import type { JSX } from 'react';
 import type { Instruction } from './tree-item-hitbox';
 
 export type DataType = Record<string, unknown> | undefined;
+export type IdType = string | number;
 
 export type DragStateType =
 	| 'idle'
@@ -14,24 +15,21 @@ export type DragStateType =
 	| 'preview'
 	| 'parent-of-instruction';
 
-export type DropPayloadType<D extends DataType> = {
+export type DropPayloadType<ID extends IdType, D extends DataType> = {
 	instruction: Instruction;
-	source: ElementDragType['payload'] & { data: ItemType<D> };
-	target: DropTargetRecord & { data: ItemType<D> };
+	source: ElementDragType['payload'] & { data: ItemType<ID, D> };
+	target: DropTargetRecord & { data: ItemType<ID, D> };
 };
 
 type IndentSizeType = number;
 type IndicatorTypeType = 'ghost' | 'line';
 
-export type ItemType<
-	D extends DataType = DataType,
-	I extends string | number = string | number,
-> = {
+export type ItemType<ID extends IdType, D extends DataType = DataType> = {
 	data: D;
-	id: I;
+	id: ID;
 	isDraggable?: boolean;
 	isOpen?: boolean;
-	items?: Array<ItemType<D>>;
+	items?: Array<ItemType<ID, D>>;
 };
 
 export type ChildPropsType = {
@@ -40,49 +38,51 @@ export type ChildPropsType = {
 	containerRef: React.RefObject<any>;
 };
 
-export type RowPropsType<D extends DataType> = {
+export type RowPropsType<ID extends IdType, D extends DataType> = {
 	'aria-controls'?: string;
 	'aria-expanded'?: boolean;
-	draggedItem: ItemType<D> | null;
+	draggedItem: ItemType<ID, D> | null;
 	// biome-ignore lint/suspicious/noExplicitAny: Can't figure how to make this HTMLElement
 	dragHandleRef?: React.RefObject<any>;
 	indentLevel: number;
 	indentSize: IndentSizeType;
 	indicatorType: IndicatorTypeType;
 	instruction: Instruction | null;
-	item: ItemType<D>;
+	item: ItemType<ID, D>;
 	// biome-ignore lint/suspicious/noExplicitAny: Can't figure how to make this HTMLElement
 	itemRef?: React.RefObject<any>;
 	onExpandToggle?: (info: {
 		event?: React.MouseEvent | React.KeyboardEvent;
-		item: ItemType<D>;
+		item: ItemType<ID, D>;
 		isOpen: boolean;
 	}) => void;
 	state: DragStateType;
 };
 
-export type IndicatorPropsType<D extends DataType> = Pick<
-	RowPropsType<D>,
+export type IndicatorPropsType<ID extends IdType, D extends DataType> = Pick<
+	RowPropsType<ID, D>,
 	'instruction' | 'indentLevel' | 'indentSize'
 > & {
-	item?: ItemType<D> | null;
+	item?: ItemType<ID, D> | null;
 };
 
-export type PreviewPropsType<D extends DataType> = {
-	item: ItemType<D>;
+export type PreviewPropsType<ID extends IdType, D extends DataType> = {
+	item: ItemType<ID, D>;
 };
 
-export type PropsType<D extends DataType> = {
+export type PropsType<ID extends IdType, D extends DataType> = {
 	children?: (childProps: ChildPropsType) => JSX.Element;
 	getAllowedDropInstructions?: (
-		payload: Pick<DropPayloadType<D>, 'source' | 'target'>,
+		payload: Pick<DropPayloadType<ID, D>, 'source' | 'target'>,
 	) => Array<Instruction['type']>;
 	indentSize?: IndentSizeType;
 	indicatorType?: IndicatorTypeType;
-	items: Array<ItemType<D>>;
-	onDrop?: (payload: DropPayloadType<D>) => void;
-	onExpandToggle?: RowPropsType<D>['onExpandToggle'];
-	renderIndicator?: (indicatorProps: IndicatorPropsType<D>) => React.ReactNode;
-	renderPreview?: (previewProps: PreviewPropsType<D>) => React.ReactNode;
-	renderRow?: (rowProps: RowPropsType<D>) => React.ReactNode;
+	items: Array<ItemType<ID, D>>;
+	onDrop?: (payload: DropPayloadType<ID, D>) => void;
+	onExpandToggle?: RowPropsType<ID, D>['onExpandToggle'];
+	renderIndicator?: (
+		indicatorProps: IndicatorPropsType<ID, D>,
+	) => React.ReactNode;
+	renderPreview?: (previewProps: PreviewPropsType<ID, D>) => React.ReactNode;
+	renderRow?: (rowProps: RowPropsType<ID, D>) => React.ReactNode;
 };

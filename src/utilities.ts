@@ -1,4 +1,4 @@
-import type { DataType, ItemType } from './types';
+import type { DataType, IdType, ItemType } from './types';
 
 export const delay = ({
 	waitMs: timeMs,
@@ -16,31 +16,15 @@ export const delay = ({
 	};
 };
 
-export const findInTree = <Item extends ItemType>(
-	items: Array<Item>,
-	itemId: Item['id'],
-): Item | undefined => {
-	for (const item of items) {
-		if (item.id === itemId) return item;
-
-		if (item.items?.length) {
-			const result = findInTree(item.items, itemId);
-			if (result) {
-				return result as Item;
-			}
-		}
-	}
-};
-
-export const getPathToItem = <D extends DataType>({
+export const getPathToItem = <ID extends IdType, D extends DataType>({
 	current,
 	targetId,
 	parentIds = [],
 }: {
-	current: Array<ItemType<D>>;
-	targetId: ItemType<D>['id'];
-	parentIds?: Array<ItemType<D>['id']>;
-}): Array<ItemType<D>['id']> | undefined => {
+	current: Array<ItemType<ID, D>>;
+	targetId: ID;
+	parentIds?: Array<ID>;
+}): Array<ID> | undefined => {
 	for (const item of current) {
 		if (item.id === targetId) {
 			return parentIds;
@@ -56,7 +40,7 @@ export const getPathToItem = <D extends DataType>({
 	}
 };
 
-export const recursiveMap = <Item extends ItemType<DataType>>(
+export const recursiveMap = <Item extends ItemType<IdType, DataType>>(
 	items: Array<Item>,
 	callback: (item: Item, parent?: Item) => Item | null | undefined,
 ) => {

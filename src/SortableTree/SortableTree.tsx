@@ -5,7 +5,13 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import SortableTreeItem from '../SortableTreeItem/SortableTreeItem';
 import { extractInstruction } from '../tree-item-hitbox';
 import type { Instruction, ItemMode } from '../tree-item-hitbox';
-import type { DataType, DropPayloadType, ItemType, PropsType } from '../types';
+import type {
+	DataType,
+	DropPayloadType,
+	IdType,
+	ItemType,
+	PropsType,
+} from '../types';
 import { getPathToItem } from '../utilities';
 
 const defaultGetAllowedDropInstructions = () => [
@@ -18,7 +24,7 @@ const defaultGetAllowedDropInstructions = () => [
 // TODO: Find a better way to handle empty renderers
 const NOOP = () => <div />;
 
-const SortableTree = <D extends DataType>({
+const SortableTree = <ID extends IdType, D extends DataType>({
 	children,
 	getAllowedDropInstructions = defaultGetAllowedDropInstructions,
 	indentSize = 16,
@@ -29,9 +35,11 @@ const SortableTree = <D extends DataType>({
 	renderIndicator,
 	renderPreview,
 	renderRow,
-}: PropsType<D>) => {
-	const [lastAction, setLastAction] = useState<DropPayloadType<D> | null>(null);
-	const [draggedItem, setDraggedItem] = useState<ItemType<D> | null>(null);
+}: PropsType<ID, D>) => {
+	const [lastAction, setLastAction] = useState<DropPayloadType<ID, D> | null>(
+		null,
+	);
+	const [draggedItem, setDraggedItem] = useState<ItemType<ID, D> | null>(null);
 
 	const containerRef = useRef<HTMLElement | null>(null);
 	const lastStateRef = useRef<typeof items>(items);
@@ -53,7 +61,7 @@ const SortableTree = <D extends DataType>({
 				canMonitor: ({ source }) =>
 					source.data.uniqueContextId === uniqueContextId,
 				onDragStart({ source }) {
-					setDraggedItem(source.data as ItemType<D>);
+					setDraggedItem(source.data as ItemType<ID, D>);
 				},
 				onDrop(args) {
 					const { location, source } = args;
@@ -65,7 +73,7 @@ const SortableTree = <D extends DataType>({
 
 					const target = location.current
 						.dropTargets[0] as (typeof location.current.dropTargets)[number] & {
-						data: ItemType<D>;
+						data: ItemType<ID, D>;
 					};
 
 					const instruction: Instruction | null = extractInstruction(
@@ -73,7 +81,9 @@ const SortableTree = <D extends DataType>({
 					);
 
 					if (instruction !== null) {
-						const typedSource = source as typeof source & { data: ItemType<D> };
+						const typedSource = source as typeof source & {
+							data: ItemType<ID, D>;
+						};
 
 						setLastAction({
 							instruction,
@@ -109,7 +119,7 @@ const SortableTree = <D extends DataType>({
 			})();
 
 			return (
-				<SortableTreeItem<D>
+				<SortableTreeItem<ID, D>
 					draggedItem={draggedItem}
 					getAllowedDropInstructions={getAllowedDropInstructions}
 					indentLevel={0}
@@ -118,8 +128,9 @@ const SortableTree = <D extends DataType>({
 					item={item}
 					key={item.id}
 					mode={type}
-					getPathToItem={(targetId: ItemType<D>['id']) =>
-						getPathToItem<D>({ current: lastStateRef.current, targetId }) ?? []
+					getPathToItem={(targetId: ItemType<ID, D>['id']) =>
+						getPathToItem<ID, D>({ current: lastStateRef.current, targetId }) ??
+						[]
 					}
 					onExpandToggle={onExpandToggle}
 					renderIndicator={renderIndicator ?? NOOP}

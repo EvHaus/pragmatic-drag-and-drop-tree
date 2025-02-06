@@ -1,8 +1,8 @@
 import type { RowPropsType } from 'pragmatic-drag-and-drop-tree';
-import type { DataType } from '../../data/sample';
+import type { DataType, IdType } from '../../data/sample';
 import styles from './SampleRow.module.css';
 
-const SampleRow = <D extends DataType>({
+const SampleRow = <ID extends IdType, D extends DataType>({
 	'aria-controls': ariaControls,
 	'aria-expanded': ariaExpanded,
 	draggedItem,
@@ -16,8 +16,8 @@ const SampleRow = <D extends DataType>({
 	onExpandToggle,
 	state,
 	withDragHandle = false,
-}: Omit<RowPropsType<D>, 'item'> & {
-	item?: RowPropsType<D>['item'] | null;
+}: Omit<RowPropsType<ID, D>, 'item'> & {
+	item?: RowPropsType<ID, D>['item'] | null;
 	withDragHandle?: boolean;
 }) => {
 	const handleExpandToggleClick = (event: React.MouseEvent) => {

@@ -19,26 +19,27 @@ import type { Instruction, ItemMode } from '../tree-item-hitbox';
 import type {
 	DataType,
 	DragStateType,
+	IdType,
 	ItemType,
 	PropsType as SharedPropsType,
 } from '../types';
 import { delay } from '../utilities';
 
-type PropsType<D extends DataType> = {
-	children: SharedPropsType<D>['renderRow'];
-	draggedItem: ItemType<D> | null;
+type PropsType<ID extends IdType, D extends DataType> = {
+	children: SharedPropsType<ID, D>['renderRow'];
+	draggedItem: ItemType<ID, D> | null;
 	getAllowedDropInstructions: NonNullable<
-		SharedPropsType<D>['getAllowedDropInstructions']
+		SharedPropsType<ID, D>['getAllowedDropInstructions']
 	>;
-	getPathToItem: (itemId: ItemType<D>['id']) => Array<ItemType<D>['id']>;
+	getPathToItem: (itemId: ID) => Array<ID>;
 	indentLevel: number;
-	indentSize: NonNullable<SharedPropsType<D>['indentSize']>;
-	indicatorType: NonNullable<SharedPropsType<D>['indicatorType']>;
-	item: ItemType<D>;
+	indentSize: NonNullable<SharedPropsType<ID, D>['indentSize']>;
+	indicatorType: NonNullable<SharedPropsType<ID, D>['indicatorType']>;
+	item: ItemType<ID, D>;
 	mode: ItemMode;
-	onExpandToggle?: SharedPropsType<D>['onExpandToggle'];
-	renderIndicator: SharedPropsType<D>['renderIndicator'];
-	renderPreview: SharedPropsType<D>['renderPreview'];
+	onExpandToggle?: SharedPropsType<ID, D>['onExpandToggle'];
+	renderIndicator: SharedPropsType<ID, D>['renderIndicator'];
+	renderPreview: SharedPropsType<ID, D>['renderPreview'];
 	uniqueContextId: symbol;
 };
 
@@ -52,7 +53,7 @@ function getParentLevelOfInstruction(instruction: Instruction): number {
 	return instruction.currentLevel - 1;
 }
 
-const SortableTreeItem = <D extends DataType>({
+const SortableTreeItem = <ID extends IdType, D extends DataType>({
 	children,
 	draggedItem,
 	getAllowedDropInstructions,
@@ -66,7 +67,7 @@ const SortableTreeItem = <D extends DataType>({
 	renderIndicator,
 	renderPreview,
 	uniqueContextId,
-}: PropsType<D>) => {
+}: PropsType<ID, D>) => {
 	const itemRef = useRef<HTMLElement | null>(null);
 	const dragHandleRef = useRef<HTMLElement | null>(null);
 
@@ -95,7 +96,7 @@ const SortableTreeItem = <D extends DataType>({
 			const instruction = extractInstruction(target.data);
 			if (!instruction) return false;
 
-			const targetId = target.data.id as string;
+			const targetId = target.data.id as ID;
 			if (!targetId) return false;
 
 			const path = getPathToItem(targetId);
@@ -305,7 +306,7 @@ const SortableTreeItem = <D extends DataType>({
 							return 'standard';
 						})();
 						return (
-							<SortableTreeItem<D>
+							<SortableTreeItem<ID, D>
 								draggedItem={draggedItem}
 								getAllowedDropInstructions={getAllowedDropInstructions}
 								getPathToItem={getPathToItem}

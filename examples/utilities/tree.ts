@@ -1,11 +1,28 @@
 import type { ItemType } from 'pragmatic-drag-and-drop-tree';
+import type { DataType, IdType } from '../data/sample';
 
 // TODO: Make all these operations mutable since we operate on a clone
 
+export const findInTree = <Item extends ItemType<IdType, DataType>>(
+	items: Array<Item>,
+	itemId: Item['id'],
+): Item | undefined => {
+	for (const item of items) {
+		if (item.id === itemId) return item;
+
+		if (item.items?.length) {
+			const result = findInTree(item.items, itemId);
+			if (result) {
+				return result as Item;
+			}
+		}
+	}
+};
+
 export const remove = (
-	data: Array<ItemType>,
-	id: ItemType['id'],
-): Array<ItemType> => {
+	data: Array<ItemType<IdType, DataType>>,
+	id: IdType,
+): Array<ItemType<IdType, DataType>> => {
 	return data
 		.filter((item) => item.id !== id)
 		.map((item) => {
@@ -20,10 +37,10 @@ export const remove = (
 };
 
 export const insertBefore = (
-	data: Array<ItemType>,
-	targetId: ItemType['id'],
-	newItem: ItemType,
-): Array<ItemType> => {
+	data: Array<ItemType<IdType, DataType>>,
+	targetId: IdType,
+	newItem: ItemType<IdType, DataType>,
+): Array<ItemType<IdType, DataType>> => {
 	return data.flatMap((item) => {
 		if (item.id === targetId) {
 			return [newItem, item];
@@ -39,10 +56,10 @@ export const insertBefore = (
 };
 
 export const insertAfter = (
-	data: Array<ItemType>,
-	targetId: ItemType['id'],
-	newItem: ItemType,
-): Array<ItemType> => {
+	data: Array<ItemType<IdType, DataType>>,
+	targetId: IdType,
+	newItem: ItemType<IdType, DataType>,
+): Array<ItemType<IdType, DataType>> => {
 	return data.flatMap((item) => {
 		if (item.id === targetId) {
 			return [item, newItem];
@@ -60,10 +77,10 @@ export const insertAfter = (
 };
 
 export const insertChild = (
-	data: Array<ItemType>,
-	targetId: ItemType['id'],
-	newItem: ItemType,
-): Array<ItemType> => {
+	data: Array<ItemType<IdType, DataType>>,
+	targetId: IdType,
+	newItem: ItemType<IdType, DataType>,
+): Array<ItemType<IdType, DataType>> => {
 	return data.flatMap((item) => {
 		if (item.id === targetId) {
 			// already a parent: add as first child

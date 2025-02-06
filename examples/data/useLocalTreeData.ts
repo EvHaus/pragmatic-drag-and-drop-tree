@@ -1,8 +1,9 @@
 import type { ItemType, PropsType } from 'pragmatic-drag-and-drop-tree';
 import { useState } from 'react';
-import { findInTree, recursiveMap } from '../../src/utilities';
-import { type DataType, SAMPLE_TREE_DATA } from '../data/sample';
+import { recursiveMap } from '../../src/utilities';
+import { type DataType, type IdType, SAMPLE_TREE_DATA } from '../data/sample';
 import {
+	findInTree,
 	insertAfter,
 	insertBefore,
 	insertChild,
@@ -11,9 +12,9 @@ import {
 
 const useTreeData = () => {
 	const [items, setItems] =
-		useState<Array<ItemType<DataType>>>(SAMPLE_TREE_DATA);
+		useState<Array<ItemType<IdType, DataType>>>(SAMPLE_TREE_DATA);
 
-	const handleDrop: PropsType<DataType>['onDrop'] = ({
+	const handleDrop: PropsType<IdType, DataType>['onDrop'] = ({
 		instruction,
 		source,
 		target,
@@ -28,28 +29,25 @@ const useTreeData = () => {
 		if (instruction.type === 'reorder-above') {
 			let result = remove(clonedItems, source.data.id);
 			result = insertBefore(result, target.data.id, item);
-			// @ts-expect-error TODO: Fix me
 			return setItems(result);
 		}
 
 		if (instruction.type === 'reorder-below') {
 			let result = remove(clonedItems, source.data.id);
 			result = insertAfter(result, target.data.id, item);
-			// @ts-expect-error TODO: Fix me
 			return setItems(result);
 		}
 
 		if (instruction.type === 'make-child') {
 			let result = remove(clonedItems, source.data.id);
 			result = insertChild(result, target.data.id, item);
-			// @ts-expect-error TODO: Fix me
 			return setItems(result);
 		}
 
 		console.warn('TODO: action not implemented', instruction);
 	};
 
-	const handleExpandToggle: PropsType<DataType>['onExpandToggle'] = ({
+	const handleExpandToggle: PropsType<IdType, DataType>['onExpandToggle'] = ({
 		item: toggledItem,
 		isOpen,
 	}) => {
@@ -63,23 +61,25 @@ const useTreeData = () => {
 		);
 	};
 
-	const getAllowedDropInstructions: PropsType<DataType>['getAllowedDropInstructions'] =
-		({ source, target }) => {
-			// Don't allow dropping on yourself
-			if (source.data.id === target.data.id) return [];
+	const getAllowedDropInstructions: PropsType<
+		IdType,
+		DataType
+	>['getAllowedDropInstructions'] = ({ source, target }) => {
+		// Don't allow dropping on yourself
+		if (source.data.id === target.data.id) return [];
 
-			const DEFAULT_ALLOWED_DROP_INSTRUCTIONS = [
-				'reparent' as const,
-				'reorder-above' as const,
-				'reorder-below' as const,
-			];
+		const DEFAULT_ALLOWED_DROP_INSTRUCTIONS = [
+			'reparent' as const,
+			'reorder-above' as const,
+			'reorder-below' as const,
+		];
 
-			// Only folders can have children
-			if (target.data.data.type === 'category')
-				return [...DEFAULT_ALLOWED_DROP_INSTRUCTIONS, 'make-child'];
+		// Only folders can have children
+		if (target.data.data.type === 'category')
+			return [...DEFAULT_ALLOWED_DROP_INSTRUCTIONS, 'make-child'];
 
-			return DEFAULT_ALLOWED_DROP_INSTRUCTIONS;
-		};
+		return DEFAULT_ALLOWED_DROP_INSTRUCTIONS;
+	};
 
 	return {
 		getAllowedDropInstructions,

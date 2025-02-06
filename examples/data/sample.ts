@@ -5,7 +5,9 @@ export type DataType = {
 	type: 'category' | 'thing';
 };
 
-export const SAMPLE_TREE_DATA: Array<ItemType<DataType>> = [
+export type IdType = string;
+
+export const SAMPLE_TREE_DATA: Array<ItemType<IdType, DataType>> = [
 	{
 		data: { name: 'Cars', type: 'category' },
 		id: 'cars',
