@@ -122,7 +122,7 @@ const SortableTreeItem = <ID extends IdType, D extends DataType>({
 
 		return combine(
 			draggable({
-				canDrag: () => item.isDraggable || true,
+				canDrag: () => item.isDraggable ?? true,
 				element: dragHandleRef.current || itemRef.current,
 				getInitialData: () => ({
 					...item,
