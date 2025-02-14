@@ -71,7 +71,7 @@ export type PreviewPropsType<ID extends IdType, D extends DataType> = {
 };
 
 export type PropsType<ID extends IdType, D extends DataType> = {
-	children?: (childProps: ChildPropsType) => JSX.Element;
+	children: (childProps: ChildPropsType) => JSX.Element;
 	flashClass?: string;
 	getAllowedDropInstructions?: (
 		payload: Pick<DropPayloadType<ID, D>, 'source' | 'target'>,
