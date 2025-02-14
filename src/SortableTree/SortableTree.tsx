@@ -1,4 +1,3 @@
-import { triggerPostMoveFlash } from '@atlaskit/pragmatic-drag-and-drop-flourish/trigger-post-move-flash';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
 import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import { useEffect, useMemo, useRef, useState } from 'react';
@@ -26,6 +25,7 @@ const NOOP = () => <div />;
 
 const SortableTree = <ID extends IdType, D extends DataType>({
 	children,
+	flashClass,
 	getAllowedDropInstructions = defaultGetAllowedDropInstructions,
 	indentSize = 16,
 	indicatorType = 'line',
@@ -50,10 +50,23 @@ const SortableTree = <ID extends IdType, D extends DataType>({
 		lastStateRef.current = items;
 	}, [items]);
 
-	// Highlight last dragged item after drop
+	// Highlight last dragged item after drop. This is essentially a clone of
+	// the `triggerPostMoveFlash` function from the `pragmatic-drag-and-drop`
+	// library.
 	useEffect(() => {
-		if (lastAction) triggerPostMoveFlash(lastAction.source.element);
-	}, [lastAction]);
+		let raf: number | null = null;
+		if (lastAction && flashClass) {
+			raf = requestAnimationFrame(() => {
+				lastAction.source.element.classList.add(flashClass);
+			});
+		}
+
+		return () => {
+			if (lastAction && flashClass)
+				lastAction.source.element.classList.remove(flashClass);
+			if (raf) cancelAnimationFrame(raf);
+		};
+	}, [flashClass, lastAction]);
 
 	useEffect(() => {
 		return combine(

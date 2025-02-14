@@ -26,7 +26,6 @@
 	"types": "./dist/index.d.ts",
 	"peerDependencies": {
 		"@atlaskit/pragmatic-drag-and-drop": "^1.5.0",
-		"@atlaskit/pragmatic-drag-and-drop-flourish": "^1.2.0",
 		"react": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0",
 		"react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0"
 	},

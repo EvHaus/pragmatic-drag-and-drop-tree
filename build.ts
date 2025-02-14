@@ -10,7 +10,6 @@ async function build() {
 		external: [
 			// Uncomment these when https://github.com/atlassian/pragmatic-drag-and-drop/issues/27 is fixed
 			// '@atlaskit/pragmatic-drag-and-drop',
-			// '@atlaskit/pragmatic-drag-and-drop-flourish',
 			'react',
 			'react-dom',
 		],

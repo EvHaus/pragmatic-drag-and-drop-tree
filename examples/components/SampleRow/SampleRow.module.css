@@ -59,3 +59,16 @@
 	justify-content: center;
 	width: 24px;
 }
+
+.flash {
+	animation: flash 250ms cubic-bezier(0.25, 0.1, 0.25, 1.0);
+}
+
+@keyframes flash {
+	0% {
+		background: rgba(0, 0, 255, 0.5);
+	}
+	100% {
+		background: rgba(0, 0, 255, 0);
+	}
+}

@@ -3,6 +3,7 @@ import SampleChildren from '../components/SampleChildren/SampleChildren';
 import SampleDropGhostIndicator from '../components/SampleDropGhostIndicator/SampleDropGhostIndicator';
 import SamplePreview from '../components/SamplePreview/SamplePreview';
 import SampleRow from '../components/SampleRow/SampleRow';
+import rowStyles from '../components/SampleRow/SampleRow.module.css';
 import useLocalTreeData from '../data/useLocalTreeData';
 
 const WithGhostIndicator = () => {
@@ -11,6 +12,7 @@ const WithGhostIndicator = () => {
 
 	return (
 		<SortableTree
+			flashClass={rowStyles.flash}
 			getAllowedDropInstructions={getAllowedDropInstructions}
 			indicatorType='ghost'
 			items={items}

@@ -51,7 +51,7 @@ const SampleRow = <ID extends IdType, D extends DataType>({
 			ref={itemRef as React.RefObject<HTMLLIElement>}
 		>
 			{withDragHandle ? (
-				<div
+				<span
 					className={styles.dragHandle}
 					ref={dragHandleRef as React.RefObject<HTMLDivElement>}
 				>
@@ -66,7 +66,7 @@ const SampleRow = <ID extends IdType, D extends DataType>({
 							<circle cx='5' cy='9' r='1' />
 						</g>
 					</svg>
-				</div>
+				</span>
 			) : null}
 			<div className={styles.content}>
 				{onExpandToggle && item?.items?.length ? (

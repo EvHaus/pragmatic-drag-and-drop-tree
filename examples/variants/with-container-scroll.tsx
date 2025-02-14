@@ -2,6 +2,7 @@ import SortableTree from 'pragmatic-drag-and-drop-tree';
 import SampleDropLineIndicator from '../components/SampleDropLineIndicator/SampleDropLineIndicator';
 import SamplePreview from '../components/SamplePreview/SamplePreview';
 import SampleRow from '../components/SampleRow/SampleRow';
+import rowStyles from '../components/SampleRow/SampleRow.module.css';
 import useLocalTreeData from '../data/useLocalTreeData';
 
 const WithLineIndicator = () => {
@@ -10,6 +11,7 @@ const WithLineIndicator = () => {
 
 	return (
 		<SortableTree
+			flashClass={rowStyles.flash}
 			getAllowedDropInstructions={getAllowedDropInstructions}
 			items={items}
 			onDrop={handleDrop}
