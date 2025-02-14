@@ -12,6 +12,8 @@
 > **Warning**
 > This library is in early development and may not be production ready. Please give it a try and provide your feedback in the issues.
 
+![pragmatic-drag-and-drop-tree](./examples.gif)
+
 ## The problem
 
 Pragmatic drag and drop is an excellent library for building drag and drop interfaces, and although it has native support for tree structures, it requires a lot of boilerplate code to implement and many of the provided examples make use of Atlassian's Atlaskit design system which may not always be desirable. The base components also lack some needed features, such as [drag restrictions](https://github.com/atlassian/pragmatic-drag-and-drop/issues/49).
