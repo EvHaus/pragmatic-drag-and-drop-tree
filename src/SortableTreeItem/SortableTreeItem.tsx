@@ -19,6 +19,7 @@ import type { Instruction, ItemMode } from '../tree-item-hitbox';
 import type {
 	DataType,
 	DragStateType,
+	DropPayloadType,
 	IdType,
 	ItemType,
 	PropsType as SharedPropsType,
@@ -168,9 +169,7 @@ const SortableTreeItem = <ID extends IdType, D extends DataType>({
 					const data = { ...item };
 
 					const allowedInstructions = getAllowedDropInstructions({
-						// @ts-expect-error TODO: Fix me
-						source,
-						// @ts-expect-error TODO: Fix me
+						source: source as DropPayloadType<ID, D>['source'],
 						target: { data, element },
 					});
 
