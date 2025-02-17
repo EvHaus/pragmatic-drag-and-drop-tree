@@ -185,6 +185,7 @@ const SortableTreeItem = <ID extends IdType, D extends DataType>({
 
 					if (!allowedInstructions.includes(instruction.type)) {
 						instruction = applyInstructionBlock({
+							allowedInstructions,
 							desired: instruction,
 						});
 					}

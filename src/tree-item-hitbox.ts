@@ -190,11 +190,16 @@ const memoizeInstruction = (() => {
 })();
 
 export function applyInstructionBlock({
+	allowedInstructions,
 	desired,
 }: {
+	allowedInstructions: Array<Instruction['type']>;
 	desired: Instruction;
 }): Instruction {
-	if (desired.type === 'make-child')
+	if (
+		desired.type === 'make-child' &&
+		allowedInstructions.includes('reorder-below')
+	)
 		return {
 			...desired,
 			type: 'reorder-below',
