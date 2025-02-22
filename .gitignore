@@ -4,4 +4,3 @@ custom.d.ts
 dist
 node_modules
 tsconfig.tsbuildinfo
-vite.config.ts
