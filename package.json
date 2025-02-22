@@ -16,7 +16,7 @@
 	"scripts": {
 		"biome:check": "biome check --write",
 		"build": "NODE_ENV=production bun ./build.ts",
-		"dev": "bunx --bun vite",
+		"dev": "bun examples/server.tsx",
 		"lint": "bun biome:check && bun packagelint && bun typescript",
 		"packagelint": "prettier-package-json --use-tabs --write ./package.json",
 		"semantic-release": "semantic-release",
@@ -34,15 +34,12 @@
 		"@types/bun": "1.3.5",
 		"@types/react": "19.2.7",
 		"@types/react-dom": "19.2.3",
-		"@vitejs/plugin-react": "5.1.2",
 		"lefthook": "2.0.13",
 		"ms": "2.1.3",
 		"prettier-package-json": "2.8.0",
 		"semantic-release": "25.0.2",
 		"typescript": "5.9.3",
-		"typescript-plugin-css-modules": "5.2.0",
-		"vite": "7.3.1",
-		"vite-tsconfig-paths": "6.0.3"
+		"typescript-plugin-css-modules": "5.2.0"
 	},
 	"release": {
 		"branches": [

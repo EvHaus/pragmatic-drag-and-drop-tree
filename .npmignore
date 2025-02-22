@@ -12,4 +12,3 @@ src
 tsconfig.json
 tsconfig.build.json
 tsconfig.tsbuildinfo
-vite.config.ts
