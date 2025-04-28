@@ -104,6 +104,9 @@ const SortableTree = <ID extends IdType, D extends DataType>({
 							target,
 						});
 
+						// Don't fire onDrop for `instruction-blocked`
+						if (instruction.type === 'instruction-blocked') return;
+
 						onDrop?.({
 							instruction,
 							source: typedSource,
