@@ -33,7 +33,7 @@
 		"@biomejs/biome": "1.9.4",
 		"@types/bun": "1.2.13",
 		"@types/react": "19.1.4",
-		"@types/react-dom": "19.1.4",
+		"@types/react-dom": "19.1.5",
 		"@vitejs/plugin-react": "4.4.1",
 		"lefthook": "1.11.12",
 		"ms": "2.1.3",
