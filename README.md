@@ -10,7 +10,7 @@
 [![downloads][downloads-badge]][npmtrends]
 
 > [!WARNING]
-> This library is in early development and may not be production ready. Please give it a try and provide your feedback in the issues.
+> This library is in early development. Please give it a try and provide your feedback in the issues.
 
 ![pragmatic-drag-and-drop-tree](./examples.gif)
 

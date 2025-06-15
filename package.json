@@ -45,6 +45,8 @@
 		"vite-tsconfig-paths": "5.1.4"
 	},
 	"release": {
-		"branches": ["main"]
+		"branches": [
+			"main"
+		]
 	}
 }
