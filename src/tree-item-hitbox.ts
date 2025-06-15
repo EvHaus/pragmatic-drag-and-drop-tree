@@ -67,6 +67,7 @@ function standardHitbox({
 	if (client.y <= borderBox.top + falloverHeight) {
 		return 'reorder-above';
 	}
+
 	// If dragging over the bottom segment: reorder-below
 	if (client.y >= borderBox.bottom - falloverHeight) {
 		return 'reorder-below';
@@ -158,9 +159,7 @@ function isShallowEqual(
 ): boolean {
 	const aKeys = Object.keys(a).sort();
 	const bKeys = Object.keys(b).sort();
-	if (aKeys.length !== bKeys.length) {
-		return false;
-	}
+	if (aKeys.length !== bKeys.length) return false;
 	return aKeys.every((key) => a[key] === b[key]);
 }
 
