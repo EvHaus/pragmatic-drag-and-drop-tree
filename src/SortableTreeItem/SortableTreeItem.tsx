@@ -199,7 +199,7 @@ const SortableTreeItem = <ID extends IdType, D extends DataType>({
 						// expand after 500ms if still merging
 						if (
 							instruction?.type === 'make-child' &&
-							hasChildren &&
+							item.isExpandable &&
 							!item.isOpen &&
 							!cancelExpandRef.current
 						) {
@@ -276,8 +276,8 @@ const SortableTreeItem = <ID extends IdType, D extends DataType>({
 					})
 				: null}
 			{children?.({
-				'aria-controls': hasChildren ? subTreeId : undefined,
-				'aria-expanded': hasChildren ? item.isOpen : undefined,
+				'aria-controls': item.isExpandable ? subTreeId : undefined,
+				'aria-expanded': item.isExpandable ? item.isOpen : undefined,
 				draggedItem,
 				dragHandleRef,
 				indentLevel,

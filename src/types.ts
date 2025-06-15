@@ -28,6 +28,7 @@ export type ItemType<ID extends IdType, D extends DataType = DataType> = {
 	data: D;
 	id: ID;
 	isDraggable?: boolean;
+	isExpandable?: boolean;
 	isOpen?: boolean;
 	items?: Array<ItemType<ID, D>>;
 };

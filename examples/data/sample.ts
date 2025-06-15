@@ -11,6 +11,7 @@ export const SAMPLE_TREE_DATA: Array<ItemType<IdType, DataType>> = [
 	{
 		data: { name: 'Cars', type: 'category' },
 		id: 'cars',
+		isExpandable: true,
 		items: [
 			{
 				items: [
@@ -47,6 +48,7 @@ export const SAMPLE_TREE_DATA: Array<ItemType<IdType, DataType>> = [
 	{
 		data: { name: 'Fruits', type: 'category' },
 		id: 'fruits',
+		isExpandable: true,
 		items: [
 			{
 				data: { name: 'Apple', type: 'thing' },

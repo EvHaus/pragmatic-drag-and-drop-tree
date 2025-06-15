@@ -69,7 +69,7 @@ const SampleRow = <ID extends IdType, D extends DataType>({
 				</span>
 			) : null}
 			<div className={styles.content}>
-				{onExpandToggle && item?.items?.length ? (
+				{item?.isExpandable ? (
 					<button
 						className={styles.toggleButton}
 						onClick={handleExpandToggleClick}

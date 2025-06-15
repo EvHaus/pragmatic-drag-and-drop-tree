@@ -146,6 +146,7 @@ An array of items to display in the tree. Each item must have an `id` and `data`
 Additionally, each item can have the following optional properties:
 
 - `isDraggable`: Whether the item is draggable.
+- `isExpandable`: Whether the item is expandable to show its children
 - `isOpen`: Whether the item is open to show its children.
 - `items`: An array of child items.
 
