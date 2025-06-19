@@ -2,8 +2,8 @@ import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
 import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import SortableTreeItem from '../SortableTreeItem/SortableTreeItem';
-import { extractInstruction } from '../tree-item-hitbox';
 import type { Instruction, ItemMode } from '../tree-item-hitbox';
+import { extractInstruction } from '../tree-item-hitbox';
 import type {
 	DataType,
 	DropPayloadType,
@@ -138,16 +138,16 @@ const SortableTree = <ID extends IdType, D extends DataType>({
 				<SortableTreeItem<ID, D>
 					draggedItem={draggedItem}
 					getAllowedDropInstructions={getAllowedDropInstructions}
+					getPathToItem={(targetId: ItemType<ID, D>['id']) =>
+						getPathToItem<ID, D>({ current: lastStateRef.current, targetId }) ??
+						[]
+					}
 					indentLevel={0}
 					indentSize={indentSize}
 					indicatorType={indicatorType}
 					item={item}
 					key={item.id}
 					mode={type}
-					getPathToItem={(targetId: ItemType<ID, D>['id']) =>
-						getPathToItem<ID, D>({ current: lastStateRef.current, targetId }) ??
-						[]
-					}
 					onExpandToggle={onExpandToggle}
 					renderIndicator={renderIndicator ?? NOOP}
 					renderPreview={renderPreview ?? NOOP}

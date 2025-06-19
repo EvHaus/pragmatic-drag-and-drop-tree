@@ -14,34 +14,34 @@ export const SAMPLE_TREE_DATA: Array<ItemType<IdType, DataType>> = [
 		isExpandable: true,
 		items: [
 			{
+				data: { name: 'Japanese', type: 'category' },
+				id: 'japanese',
 				items: [
 					{
 						data: { name: 'Honda', type: 'thing' },
 						id: 'honda',
 					},
 				],
-				data: { name: 'Japanese', type: 'category' },
-				id: 'japanese',
 			},
 			{
+				data: { name: 'American', type: 'category' },
+				id: 'american',
 				items: [
 					{
 						data: { name: 'Tesla', type: 'thing' },
 						id: 'tesla',
 					},
 				],
-				data: { name: 'American', type: 'category' },
-				id: 'american',
 			},
 			{
+				data: { name: 'European', type: 'category' },
+				id: 'european',
 				items: [
 					{
 						data: { name: 'Ferarri', type: 'thing' },
 						id: 'ferarri',
 					},
 				],
-				data: { name: 'European', type: 'category' },
-				id: 'european',
 			},
 		],
 	},

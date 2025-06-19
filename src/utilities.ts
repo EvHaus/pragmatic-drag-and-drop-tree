@@ -3,7 +3,10 @@ import type { DataType, IdType, ItemType } from './types';
 export const delay = ({
 	waitMs: timeMs,
 	fn,
-}: { waitMs: number; fn: () => void }) => {
+}: {
+	waitMs: number;
+	fn: () => void;
+}) => {
 	let timeoutId: number | null = window.setTimeout(() => {
 		timeoutId = null;
 		fn();
@@ -31,8 +34,8 @@ export const getPathToItem = <ID extends IdType, D extends DataType>({
 		}
 		const nested = getPathToItem({
 			current: item.items || [],
-			targetId: targetId,
 			parentIds: [...parentIds, item.id],
+			targetId,
 		});
 		if (nested) {
 			return nested;

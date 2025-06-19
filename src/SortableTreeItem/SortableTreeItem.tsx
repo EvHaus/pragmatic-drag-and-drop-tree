@@ -9,13 +9,13 @@ import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/el
 import type { DragLocationHistory } from '@atlaskit/pragmatic-drag-and-drop/types';
 import { Fragment, useCallback, useEffect, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
+import type { Instruction, ItemMode } from '../tree-item-hitbox';
 import {
 	applyInstructionBlock,
 	attachInstruction,
 	extractInstruction,
 	getInstruction,
 } from '../tree-item-hitbox';
-import type { Instruction, ItemMode } from '../tree-item-hitbox';
 import type {
 	DataType,
 	DragStateType,
@@ -111,7 +111,9 @@ const SortableTreeItem = <ID extends IdType, D extends DataType>({
 	useEffect(() => {
 		function updateIsParentOfInstruction({
 			location,
-		}: { location: DragLocationHistory }) {
+		}: {
+			location: DragLocationHistory;
+		}) {
 			if (shouldHighlightParent(location)) {
 				setState('parent-of-instruction');
 				return;
@@ -131,32 +133,32 @@ const SortableTreeItem = <ID extends IdType, D extends DataType>({
 					isOpenOnDragStart: item.isOpen,
 					uniqueContextId,
 				}),
-				onGenerateDragPreview: ({ nativeSetDragImage }) => {
-					if (renderPreview) {
-						setCustomNativeDragPreview({
-							getOffset: pointerOutsideOfPreview({ x: '8px', y: '8px' }),
-							render: ({ container }) => {
-								const root = createRoot(container);
-								root.render(renderPreview({ item }));
-								return () => root.unmount();
-							},
-							nativeSetDragImage,
-						});
-					}
-				},
 				onDragStart: ({ source }) => {
 					setState('dragging');
 
 					// collapse open items during a drag
 					if (source.data.isOpenOnDragStart) {
-						onExpandToggle?.({ item, isOpen: false });
+						onExpandToggle?.({ isOpen: false, item });
 					}
 				},
 				onDrop: ({ source }) => {
 					setState('idle');
 
 					if (source.data.isOpenOnDragStart) {
-						onExpandToggle?.({ item, isOpen: true });
+						onExpandToggle?.({ isOpen: true, item });
+					}
+				},
+				onGenerateDragPreview: ({ nativeSetDragImage }) => {
+					if (renderPreview) {
+						setCustomNativeDragPreview({
+							getOffset: pointerOutsideOfPreview({ x: '8px', y: '8px' }),
+							nativeSetDragImage,
+							render: ({ container }) => {
+								const root = createRoot(container);
+								root.render(renderPreview({ item }));
+								return () => root.unmount();
+							},
+						});
 					}
 				},
 			}),
@@ -204,8 +206,8 @@ const SortableTreeItem = <ID extends IdType, D extends DataType>({
 							!cancelExpandRef.current
 						) {
 							cancelExpandRef.current = delay({
+								fn: () => onExpandToggle?.({ isOpen: true, item }),
 								waitMs: 500,
-								fn: () => onExpandToggle?.({ item, isOpen: true }),
 							});
 						}
 						if (instruction?.type !== 'make-child' && cancelExpandRef.current) {
@@ -237,8 +239,8 @@ const SortableTreeItem = <ID extends IdType, D extends DataType>({
 			monitorForElements({
 				canMonitor: ({ source }) =>
 					source.data.uniqueContextId === uniqueContextId,
-				onDragStart: updateIsParentOfInstruction,
 				onDrag: updateIsParentOfInstruction,
+				onDragStart: updateIsParentOfInstruction,
 				onDrop: clearParentOfInstructionState,
 			}),
 		);

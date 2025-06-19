@@ -99,7 +99,7 @@ export function getInstruction({
 	const borderBox = element.getBoundingClientRect();
 	if (mode === 'standard') {
 		const type = standardHitbox({ allowedInstructions, borderBox, client });
-		return { type, indentSize, currentLevel };
+		return { currentLevel, indentSize, type };
 	}
 	const center: Position = getCenter(borderBox);
 
@@ -108,11 +108,11 @@ export function getInstruction({
 		// exactly the same for "standard" and "expanded" items
 		const type = standardHitbox({ allowedInstructions, borderBox, client });
 		return {
+			currentLevel,
+			indentSize,
 			// Use the "standard" hitbox for "reorder above",
 			// The rest of the item is "make-child"
 			type: type === 'reorder-above' ? type : 'make-child',
-			indentSize,
-			currentLevel,
 		};
 	}
 
@@ -124,7 +124,7 @@ export function getInstruction({
 	if (client.x < borderBox.left + visibleInset) {
 		// Above the center: `reorder-above`
 		if (client.y < center.y) {
-			return { type: 'reorder-above', indentSize, currentLevel };
+			return { currentLevel, indentSize, type: 'reorder-above' };
 		}
 
 		// On or below the center: `reparent`
@@ -138,18 +138,18 @@ export function getInstruction({
 		const desiredLevel = Math.max(Math.floor(rawLevel), 0);
 
 		return {
-			type: 'reparent',
+			currentLevel,
 			desiredLevel,
 			indentSize,
-			currentLevel,
+			type: 'reparent',
 		};
 	}
 
 	// On the visible item
 	return {
-		type: standardHitbox({ allowedInstructions, borderBox, client }),
-		indentSize,
 		currentLevel,
+		indentSize,
+		type: standardHitbox({ allowedInstructions, borderBox, client }),
 	};
 }
 
