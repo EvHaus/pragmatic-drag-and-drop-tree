@@ -20,7 +20,7 @@
 		}
 	},
 	"files": {
-		"includes": ["**", "!dist"]
+		"includes": ["**", "!dist", "!node_modules"]
 	},
 	"formatter": {
 		"enabled": true
@@ -130,6 +130,14 @@
 			}
 		}
 	},
+	"overrides": [
+		{
+			"assist": {
+				"enabled": false
+			},
+			"includes": ["package.json"]
+		}
+	],
 	"vcs": {
 		"clientKind": "git",
 		"enabled": true,

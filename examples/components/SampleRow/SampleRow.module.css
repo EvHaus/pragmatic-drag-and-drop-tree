@@ -1,16 +1,16 @@
 .main {
+	display: flex;
+	gap: 2px;
 	align-items: center;
-	border-radius: 3px;
-	border: 0;
+	height: 30px;
+	padding: 2px;
+	margin: 0;
 	/* Without this Safari renders white text on drag */
 	color: currentColor;
 	cursor: pointer;
-	display: flex;
 	list-style: none;
-	height: 30px;
-	gap: 2px;
-	margin: 0;
-	padding: 2px;
+	border: 0;
+	border-radius: 3px;
 }
 
 .idle:hover,
@@ -44,20 +44,20 @@
 }
 
 .content {
-	align-items: center;
 	display: flex;
+	align-items: center;
 	margin-left: var(--indent-level);
 }
 
 .toggleButton {
-	align-items: center;
-	background: transparent;
-	border: 0;
-	cursor: pointer;
 	display: inline-flex;
-	height: 24px;
+	align-items: center;
 	justify-content: center;
 	width: 24px;
+	height: 24px;
+	cursor: pointer;
+	background: transparent;
+	border: 0;
 }
 
 .flash {

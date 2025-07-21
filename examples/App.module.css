@@ -1,7 +1,7 @@
 .main {
-	justify-content: center;
 	display: flex;
+	gap: 16px;
+	justify-content: center;
 	font-family: -apple-system, 'system-ui', Helvetica, Arial, sans-serif;
 	font-size: 0.9rem;
-	gap: 16px;
 }

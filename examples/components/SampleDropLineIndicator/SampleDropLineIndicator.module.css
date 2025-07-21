@@ -2,35 +2,35 @@
 	--indicator-color: blue;
 	--line-thickness: 2px;
 	--terminal-size: 8px;
-	list-style: none;
+	position: relative;
 	/* We don't want to cause any additional 'dragenter' events */
 	pointer-events: none;
-	position: relative;
+	list-style: none;
 }
 
 /* Circle */
 .main::before {
+	position: absolute;
+	top: calc(((var(--terminal-size) / 2) - 1px) * -1);
+	left: var(--indent-level);
+	box-sizing: border-box;
+	display: block;
+	width: var(--terminal-size);
+	height: var(--terminal-size);
+	content: '';
 	background: transparent;
 	border: var(--line-thickness) solid var(--indicator-color);
 	border-radius: 50%;
-	box-sizing: border-box;
-	content: '';
-	display: block;
-	height: var(--terminal-size);
-	left: var(--indent-level);
-	position: absolute;
-	top: calc(((var(--terminal-size) / 2) - 1px) * -1);
-	width: var(--terminal-size);
 }
 
 /* Line */
 .main::after {
-	background: var(--indicator-color);
-	content: '';
-	display: block;
-	height: var(--line-thickness);
-	/* putting the line to the right of the terminal */
-	left: calc(var(--indent-level) + var(--terminal-size));
 	position: absolute;
 	right: 0;
+	/* putting the line to the right of the terminal */
+	left: calc(var(--indent-level) + var(--terminal-size));
+	display: block;
+	height: var(--line-thickness);
+	content: '';
+	background: var(--indicator-color);
 }
