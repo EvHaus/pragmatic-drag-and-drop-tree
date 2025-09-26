@@ -32,7 +32,7 @@
 	"devDependencies": {
 		"@biomejs/biome": "2.2.4",
 		"@types/bun": "1.2.22",
-		"@types/react": "19.1.13",
+		"@types/react": "19.1.14",
 		"@types/react-dom": "19.1.9",
 		"@vitejs/plugin-react": "5.0.3",
 		"lefthook": "1.13.4",
