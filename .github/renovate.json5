@@ -1,0 +1,10 @@
+{
+	"$schema": "https://docs.renovatebot.com/renovate-schema.json",
+	"extends": ["config:recommended"],
+	"packageRules": [{
+      "description": "Update these noisy dependencies once a month",
+      "matchPackageNames": ["lefthook"],
+      "groupName": "noisy-dependencies",
+      "schedule": ["* * 1 * *"]
+    }]
+}
