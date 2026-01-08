@@ -23,7 +23,7 @@ const defaultGetAllowedDropInstructions = () => [
 // TODO: Find a better way to handle empty renderers
 const NOOP = () => <div />;
 
-const SortableTree = <ID extends IdType, D extends DataType>({
+export default function SortableTree<ID extends IdType, D extends DataType>({
 	children,
 	flashClass,
 	getAllowedDropInstructions = defaultGetAllowedDropInstructions,
@@ -35,7 +35,7 @@ const SortableTree = <ID extends IdType, D extends DataType>({
 	renderIndicator,
 	renderPreview,
 	renderRow,
-}: PropsType<ID, D>) => {
+}: PropsType<ID, D>) {
 	const [lastAction, setLastAction] = useState<DropPayloadType<ID, D> | null>(
 		null,
 	);
@@ -159,6 +159,4 @@ const SortableTree = <ID extends IdType, D extends DataType>({
 		}),
 		containerRef,
 	});
-};
-
-export default SortableTree;
+}

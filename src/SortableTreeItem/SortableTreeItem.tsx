@@ -54,7 +54,10 @@ function getParentLevelOfInstruction(instruction: Instruction): number {
 	return instruction.currentLevel - 1;
 }
 
-const SortableTreeItem = <ID extends IdType, D extends DataType>({
+export default function SortableTreeItem<
+	ID extends IdType,
+	D extends DataType,
+>({
 	children,
 	draggedItem,
 	getAllowedDropInstructions,
@@ -68,7 +71,7 @@ const SortableTreeItem = <ID extends IdType, D extends DataType>({
 	renderIndicator,
 	renderPreview,
 	uniqueContextId,
-}: PropsType<ID, D>) => {
+}: PropsType<ID, D>) {
 	const itemRef = useRef<HTMLElement | null>(null);
 	const dragHandleRef = useRef<HTMLElement | null>(null);
 
@@ -344,6 +347,4 @@ const SortableTreeItem = <ID extends IdType, D extends DataType>({
 			) : null}
 		</Fragment>
 	);
-};
-
-export default SortableTreeItem;
+}
