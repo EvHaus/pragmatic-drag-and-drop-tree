@@ -9,6 +9,7 @@
 }
 
 /* Circle */
+/* biome-ignore lint/correctness/noUnknownPseudoElement: Broken rule */
 .main::before {
 	position: absolute;
 	top: calc(((var(--terminal-size) / 2) - 1px) * -1);
@@ -24,6 +25,7 @@
 }
 
 /* Line */
+/* biome-ignore lint/correctness/noUnknownPseudoElement: Broken rule */
 .main::after {
 	position: absolute;
 	right: 0;
