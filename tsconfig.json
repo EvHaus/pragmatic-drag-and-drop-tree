@@ -7,13 +7,17 @@
 		"jsx": "preserve",
 		"lib": ["dom", "dom.iterable", "esnext"],
 		"module": "esnext",
-		"moduleResolution": "node",
+		"moduleResolution": "bundler",
 		"noEmit": true,
 		"paths": {
 			"pragmatic-drag-and-drop-tree": ["./src/index.ts"],
 			"pragmatic-drag-and-drop-tree/*": ["./src/*"]
 		},
-		"plugins": [{ "name": "typescript-plugin-css-modules" }],
+		"plugins": [
+			{
+				"name": "typescript-plugin-css-modules"
+			}
+		],
 		"resolveJsonModule": true,
 		"skipLibCheck": true,
 		"strict": true,
