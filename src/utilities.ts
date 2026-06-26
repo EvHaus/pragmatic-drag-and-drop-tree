@@ -1,4 +1,15 @@
+import type { ItemMode } from './tree-item-hitbox';
 import type { DataType, IdType, ItemType } from './types';
+
+export const getItemMode = <ID extends IdType, D extends DataType>(
+	item: ItemType<ID, D>,
+	index: number,
+	array: Array<ItemType<ID, D>>,
+): ItemMode => {
+	if (item.items?.length && item.isOpen) return 'expanded';
+	if (index === array.length - 1) return 'last-in-group';
+	return 'standard';
+};
 
 export const delay = ({
 	waitMs: timeMs,

@@ -2,7 +2,7 @@ import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
 import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import SortableTreeItem from '../SortableTreeItem/SortableTreeItem';
-import type { Instruction, ItemMode } from '../tree-item-hitbox';
+import type { Instruction } from '../tree-item-hitbox';
 import { extractInstruction } from '../tree-item-hitbox';
 import type {
 	DataType,
@@ -11,7 +11,7 @@ import type {
 	ItemType,
 	PropsType,
 } from '../types';
-import { getPathToItem } from '../utilities';
+import { getItemMode, getPathToItem } from '../utilities';
 
 const defaultGetAllowedDropInstructions = () => [
 	'reorder-above' as const,
@@ -122,17 +122,7 @@ export default function SortableTree<ID extends IdType, D extends DataType>({
 
 	return childRenderer({
 		children: items.map((item, index, array) => {
-			const type: ItemMode = (() => {
-				if (item.items?.length && item.isOpen) {
-					return 'expanded';
-				}
-
-				if (index === array.length - 1) {
-					return 'last-in-group';
-				}
-
-				return 'standard';
-			})();
+			const type = getItemMode(item, index, array);
 
 			return (
 				<SortableTreeItem<ID, D>

@@ -24,7 +24,7 @@ import type {
 	ItemType,
 	PropsType as SharedPropsType,
 } from '../types';
-import { delay } from '../utilities';
+import { delay, getItemMode } from '../utilities';
 
 type PropsType<ID extends IdType, D extends DataType> = {
 	children: SharedPropsType<ID, D>['renderRow'];
@@ -306,11 +306,7 @@ export default function SortableTreeItem<
 				// TODO: Need to make this element configurable
 				<ul id={subTreeId} style={{ padding: 0 }}>
 					{item.items?.map((child, index, array) => {
-						const childType: ItemMode = (() => {
-							if (child.items?.length && child.isOpen) return 'expanded';
-							if (index === array.length - 1) return 'last-in-group';
-							return 'standard';
-						})();
+						const childType = getItemMode(child, index, array);
 						return (
 							<SortableTreeItem<ID, D>
 								draggedItem={draggedItem}
