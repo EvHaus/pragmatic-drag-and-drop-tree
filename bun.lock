@@ -20,7 +20,7 @@
         "vite-tsconfig-paths": "6.1.1",
       },
       "peerDependencies": {
-        "@atlaskit/pragmatic-drag-and-drop": "^1.7.9",
+        "@atlaskit/pragmatic-drag-and-drop": "^1.7.9 || ^2.0.0",
         "react": "^19.2.4",
         "react-dom": "^19.2.4",
       },
