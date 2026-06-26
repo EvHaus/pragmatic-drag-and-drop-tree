@@ -54,7 +54,7 @@ export const recursiveMap = <Item extends ItemType<IdType, DataType>>(
 ) => {
 	const result = [];
 	for (const item of items) {
-		const newItem = callback(structuredClone(item));
+		const newItem = callback({ ...item });
 		if (!newItem) continue;
 
 		if (newItem.items?.length) {
