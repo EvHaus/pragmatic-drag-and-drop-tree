@@ -11,17 +11,11 @@ export const getItemMode = <ID extends IdType, D extends DataType>(
 	return 'standard';
 };
 
-export const delay = ({
-	waitMs: timeMs,
-	fn,
-}: {
-	waitMs: number;
-	fn: () => void;
-}) => {
+export const delay = ({ waitMs, fn }: { waitMs: number; fn: () => void }) => {
 	let timeoutId: number | null = window.setTimeout(() => {
 		timeoutId = null;
 		fn();
-	}, timeMs);
+	}, waitMs);
 	return function cancel() {
 		if (timeoutId) {
 			window.clearTimeout(timeoutId);
