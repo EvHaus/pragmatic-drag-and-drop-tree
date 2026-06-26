@@ -57,7 +57,6 @@
 		}
 	},
 	"linter": {
-		"enabled": true,
 		"rules": {
 			"a11y": {
 				"noAutofocus": "off",
@@ -94,7 +93,6 @@
 				"noUnwantedPolyfillio": "error",
 				"useTopLevelRegex": "error"
 			},
-			"recommended": true,
 			"style": {
 				"noDescendingSpecificity": "error",
 				"noDoneCallback": "error",
