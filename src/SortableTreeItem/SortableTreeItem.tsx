@@ -178,7 +178,7 @@ export default function SortableTreeItem<
 						target: { data, element },
 					});
 
-					let instruction = getInstruction({
+					const desired = getInstruction({
 						allowedInstructions,
 						currentLevel: indentLevel,
 						element,
@@ -187,12 +187,9 @@ export default function SortableTreeItem<
 						mode,
 					});
 
-					if (!allowedInstructions.includes(instruction.type)) {
-						instruction = applyInstructionBlock({
-							allowedInstructions,
-							desired: instruction,
-						});
-					}
+					const instruction = allowedInstructions.includes(desired.type)
+						? desired
+						: applyInstructionBlock({ allowedInstructions, desired });
 
 					return attachInstruction(data, instruction);
 				},

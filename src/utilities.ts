@@ -48,9 +48,12 @@ export const getPathToItem = <ID extends IdType, D extends DataType>({
 	}
 };
 
-export const recursiveMap = <Item extends ItemType<IdType, DataType>>(
-	items: Array<Item>,
-	callback: (item: Item, parent?: Item) => Item | null | undefined,
+export const recursiveMap = <ID extends IdType, D extends DataType>(
+	items: Array<ItemType<ID, D>>,
+	callback: (
+		item: ItemType<ID, D>,
+		parent?: ItemType<ID, D>,
+	) => ItemType<ID, D> | null | undefined,
 ) => {
 	const result = [];
 	for (const item of items) {
@@ -59,7 +62,6 @@ export const recursiveMap = <Item extends ItemType<IdType, DataType>>(
 
 		if (newItem.items?.length) {
 			newItem.items = recursiveMap(newItem.items, (child) =>
-				// @ts-expect-error FIX ME
 				callback(child, newItem),
 			);
 		}

@@ -36,8 +36,15 @@ export type Instruction =
 	  }
 	| {
 			type: 'instruction-blocked';
-			desired: Exclude<Instruction, { type: 'instruction-blocked' }>;
+			desired: NonBlockedInstruction;
 	  };
+
+// Every instruction except the blocked wrapper. `getInstruction` only ever
+// produces these, and they are what a block can be applied to.
+export type NonBlockedInstruction = Exclude<
+	Instruction,
+	{ type: 'instruction-blocked' }
+>;
 
 // Using a symbol so we can guarantee a key with a unique value
 const uniqueKey = Symbol('tree-item-instruction');
@@ -90,7 +97,7 @@ export function getInstruction({
 	currentLevel: number;
 	indentSize: number;
 	mode: ItemMode;
-}): Instruction {
+}): NonBlockedInstruction {
 	const client: Position = {
 		x: input.clientX,
 		y: input.clientY,
@@ -193,7 +200,7 @@ export function applyInstructionBlock({
 	desired,
 }: {
 	allowedInstructions: Array<Instruction['type']>;
-	desired: Instruction;
+	desired: NonBlockedInstruction;
 }): Instruction {
 	if (
 		desired.type === 'make-child' &&
@@ -205,7 +212,6 @@ export function applyInstructionBlock({
 		};
 
 	return {
-		// @ts-expect-error TODO: Fix me
 		desired,
 		type: 'instruction-blocked',
 	};
