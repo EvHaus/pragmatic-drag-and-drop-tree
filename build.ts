@@ -1,8 +1,8 @@
-import { rm } from 'node:fs/promises';
+import { $ } from 'bun';
 
 async function build() {
 	// Delete dist folder
-	await rm('./dist', { force: true, recursive: true });
+	await $`rm -rf dist`;
 
 	// Generate bundle
 	await Bun.build({
@@ -17,16 +17,9 @@ async function build() {
 	});
 
 	// Generate types
-	const { stdout, stderr } = await Bun.spawn([
-		'tsc',
-		'-p',
-		'tsconfig.build.json',
-	]);
-	const stdoutStr = await new Response(stdout).text();
-	const stderrStr = await new Response(stderr).text();
-	if (stderrStr) return console.error(stderrStr);
+	await $`tsc -p tsconfig.build.json`;
 
-	return console.debug(`✅ DONE! ${stdoutStr}`);
+	return console.debug('✅ DONE!');
 }
 
 await build();
