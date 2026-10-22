@@ -51,39 +51,35 @@ npm install pragmatic-drag-and-drop-tree
 import SortableTree from 'pragmatic-drag-and-drop-tree';
 
 const data = [
-  {
-    data: {anything: 'you want here'},
-    id: '1',
-    items: [
-        {
-            id: '1a',
-            data: {anything: 'you want here'},
-        }
-    ]
-  },
-  {
-    data: {anything: 'you want here'},
-    id: '2'
-  }
+	{
+		data: { anything: 'you want here' },
+		id: '1',
+		items: [
+			{
+				id: '1a',
+				data: { anything: 'you want here' },
+			},
+		],
+	},
+	{
+		data: { anything: 'you want here' },
+		id: '2',
+	},
 ];
 
 const SomeComponent = () => (
-  <SortableTree
-    items={items}
-    onDrop={({instruction, source, target}) => {
-        // Update your tree data here in local state, or send a request to your backend API
-    }}
-    onExpandToggle={({isOpen, item}) => {
-        // Mutate your `items` data state here to set an `isOpen` property
-    }}
-    renderRow={({item}) => <div>{item.id}</div>}
-  >
-    {({ children, containerRef }) => (
-      <ol ref={containerRef}>
-        {children}
-      </ol>
-    )}
-  </SortableTree>
+	<SortableTree
+		items={items}
+		onDrop={({ instruction, source, target }) => {
+			// Update your tree data here in local state, or send a request to your backend API
+		}}
+		onExpandToggle={({ isOpen, item }) => {
+			// Mutate your `items` data state here to set an `isOpen` property
+		}}
+		renderRow={({ item }) => <div>{item.id}</div>}
+	>
+		{({ children, containerRef }) => <ol ref={containerRef}>{children}</ol>}
+	</SortableTree>
 );
 ```
 
@@ -94,7 +90,6 @@ const SomeComponent = () => (
 > `(childProps: ChildPropsType) => React.ReactNode` | no default
 
 Children must be passed as a function which will receive a `childProps` object with the following properties:
-
 - `children`: The tree rows themselves.
 - `containerRef`: A ref object which should be applied to the container DOM element.
 
@@ -113,13 +108,11 @@ A class name to apply to the dropped item immediately after it is dropped. This 
 A function that returns an array of allowed drop instructions based on which item is being dragged and where it is being dropped to. This allows you to restrict the types of drop operations that are allowed. For example, maybe you are creating a tree of folders and files and only want to allow users to drop into folders.
 
 Acceptable return values are:
-
 - `null`: Allow all drop instructions.
 - `[]`: Allow no drop instructions.
 - `['reorder-above', 'reorder-below', 'make-child', 'reparent']`: Explicitly allow specific drop instructions.
 
 The available instruction types are:
-
 - `reorder-above`: Allow dropping above the target item.
 - `reorder-below`: Allow dropping below the target item.
 - `make-child`: Allow dropping into the target item to make it a child.
@@ -144,7 +137,6 @@ The type of drop indicator to use. `line` is what `pragmatic-drag-and-drop` uses
 An array of items to display in the tree. Each item must have an `id` and `data` property. The `data` property is an object which can contain any additional metadata you want to store with the item.
 
 Additionally, each item can have the following optional properties:
-
 - `isDraggable`: Whether the item is draggable.
 - `isExpandable`: Whether the item is expandable to show its children
 - `isOpen`: Whether the item is open to show its children.
@@ -181,7 +173,6 @@ A function that is called to render the preview of the item that is being dragge
 A function that is called to render the row of the item. The payload contains several important properties which must be passed down to your child components. See the `examples` folder for examples of how to implement these.
 
 The `rowProps` object contains the following properties:
-
 - `aria-controls`: The ID of the element that controls the row.
 - `aria-expanded`: Whether the row is expanded.
 - `draggedItem`: The item that is being dragged.
@@ -229,11 +220,19 @@ a 👍. This helps maintainers prioritize what to work on.
 Thanks goes to these people:
 
 <table>
-  <tbody>
-    <tr>
-      <td align="center"><a href="https://haus.gg"><img src="https://avatars.githubusercontent.com/u/226640?v=3?s=100" width="100px;" alt="Ev Haus"/><br /><sub><b>Ev Haus</b></sub></a></td>
-    </tr>
-  </tbody>
+	<tbody>
+		<tr>
+			<td align="center">
+				<a href="https://haus.gg"
+					><img
+						src="https://avatars.githubusercontent.com/u/226640?v=3?s=100"
+						width="100px;"
+						alt="Ev Haus"
+					><br><sub><b>Ev Haus</b></sub></a
+				>
+			</td>
+		</tr>
+	</tbody>
 </table>
 
 ## License
