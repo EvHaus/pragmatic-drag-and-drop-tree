@@ -2,32 +2,31 @@
 	"name": "pragmatic-drag-and-drop-tree",
 	"version": "0.0.0",
 	"description": "A React component for creating drag and drop trees using Pragmatic",
-	"license": "MIT",
-	"author": "Ev Haus",
+	"bugs": {
+		"url": "https://github.com/EvHaus/pragmatic-drag-and-drop-tree/issues"
+	},
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/EvHaus/pragmatic-drag-and-drop-tree.git"
 	},
-	"bugs": {
-		"url": "https://github.com/EvHaus/pragmatic-drag-and-drop-tree/issues"
-	},
+	"license": "MIT",
+	"author": "Ev Haus",
 	"type": "module",
 	"exports": "./dist/index.js",
+	"types": "./dist/index.d.ts",
 	"scripts": {
 		"biome:check": "biome check --write",
 		"build": "NODE_ENV=production bun ./build.ts",
 		"dev": "bunx --bun vite",
-		"lint": "bun biome:check && bun packagelint && bun typescript",
-		"packagelint": "prettier-package-json --use-tabs --write ./package.json",
+		"lint": "bun biome:check && bun typescript",
 		"semantic-release": "semantic-release",
 		"test": "bun lint",
 		"typescript": "tsc --noEmit"
 	},
-	"types": "./dist/index.d.ts",
-	"peerDependencies": {
-		"@atlaskit/pragmatic-drag-and-drop": "^1.7.9 || ^2.0.1 || ^3.0.0 || ^4.0.0",
-		"react": "^19.3.0",
-		"react-dom": "^19.3.0"
+	"release": {
+		"branches": [
+			"main"
+		]
 	},
 	"devDependencies": {
 		"@biomejs/biome": "2.6.4",
@@ -37,16 +36,15 @@
 		"@vitejs/plugin-react": "6.1.2",
 		"lefthook": "2.2.2",
 		"ms": "2.1.3",
-		"prettier-package-json": "2.8.0",
 		"semantic-release": "25.0.9",
 		"typescript": "7.0.2",
 		"typescript-plugin-css-modules": "5.3.0",
 		"vite": "8.3.5",
 		"vite-tsconfig-paths": "6.1.1"
 	},
-	"release": {
-		"branches": [
-			"main"
-		]
+	"peerDependencies": {
+		"@atlaskit/pragmatic-drag-and-drop": "^1.7.9 || ^2.0.1 || ^3.0.0 || ^4.0.0",
+		"react": "^19.3.0",
+		"react-dom": "^19.3.0"
 	}
 }
