@@ -1,5 +1,5 @@
-import type { ItemMode } from './tree-item-hitbox';
-import type { DataType, IdType, ItemType } from './types';
+import type { ItemMode } from './tree-item-hitbox.js';
+import type { DataType, IdType, ItemType } from './types.js';
 
 export const getItemMode = <ID extends IdType, D extends DataType>(
 	item: ItemType<ID, D>,

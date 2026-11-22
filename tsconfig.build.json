@@ -4,6 +4,8 @@
 		"declarationMap": true,
 		"emitDeclarationOnly": true,
 		"incremental": false,
+		"module": "nodenext",
+		"moduleResolution": "nodenext",
 		"noEmit": false,
 		"outDir": "dist",
 		"rootDir": "src"

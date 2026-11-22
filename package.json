@@ -21,7 +21,7 @@
 		"lint": "bun biome:check && bun typescript",
 		"semantic-release": "semantic-release",
 		"test": "bun lint",
-		"typescript": "tsc --noEmit"
+		"typescript": "tsc --noEmit && tsc -p tsconfig.build.json --noEmit"
 	},
 	"release": {
 		"branches": [
