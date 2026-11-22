@@ -1,5 +1,7 @@
 import { $ } from 'bun';
 
+const relativeImportPattern = /from\s+['"]\.\.?\//;
+
 async function build() {
 	// Delete dist folder
 	await $`rm -rf dist`;
@@ -16,8 +18,16 @@ async function build() {
 		outdir: './dist',
 	});
 
-	// Generate types
-	await $`tsc -p tsconfig.build.json`;
+	// Bundle declarations into one dist/index.d.ts so node16/nodenext
+	// consumers never have to resolve a relative import.
+	await $`tsdown`;
+
+	const declarations = await Bun.file('./dist/index.d.ts').text();
+	if (relativeImportPattern.test(declarations)) {
+		throw new Error(
+			'dist/index.d.ts still contains a relative import after declaration rollup',
+		);
+	}
 
 	return console.debug('✅ DONE!');
 }

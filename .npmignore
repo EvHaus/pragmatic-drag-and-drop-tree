@@ -11,5 +11,6 @@ README.md
 src
 tsconfig.json
 tsconfig.build.json
+tsdown.config.ts
 tsconfig.tsbuildinfo
 vite.config.ts
