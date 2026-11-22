@@ -1,7 +1,5 @@
 .github
-.temp
 .vscode
-api-extractor.json
 biome.json
 build.ts
 bun.lock
@@ -13,5 +11,6 @@ README.md
 src
 tsconfig.json
 tsconfig.build.json
+tsdown.config.ts
 tsconfig.tsbuildinfo
 vite.config.ts

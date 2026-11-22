@@ -5,7 +5,7 @@
 		"emitDeclarationOnly": true,
 		"incremental": false,
 		"noEmit": false,
-		"outDir": ".temp/dts",
+		"outDir": "dist",
 		"rootDir": "src"
 	},
 	"extends": "./tsconfig.json",
