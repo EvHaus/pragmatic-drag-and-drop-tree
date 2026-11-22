@@ -1,5 +1,7 @@
 .github
+.temp
 .vscode
+api-extractor.json
 biome.json
 build.ts
 bun.lock

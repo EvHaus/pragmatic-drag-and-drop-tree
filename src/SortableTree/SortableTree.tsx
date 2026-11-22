@@ -1,17 +1,17 @@
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
 import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import SortableTreeItem from '../SortableTreeItem/SortableTreeItem.js';
-import type { Instruction } from '../tree-item-hitbox.js';
-import { extractInstruction } from '../tree-item-hitbox.js';
+import SortableTreeItem from '../SortableTreeItem/SortableTreeItem';
+import type { Instruction } from '../tree-item-hitbox';
+import { extractInstruction } from '../tree-item-hitbox';
 import type {
 	DataType,
 	DropPayloadType,
 	IdType,
 	ItemType,
 	PropsType,
-} from '../types.js';
-import { getItemMode, getPathToItem } from '../utilities.js';
+} from '../types';
+import { getItemMode, getPathToItem } from '../utilities';
 
 const defaultGetAllowedDropInstructions = () => [
 	'reorder-above' as const,

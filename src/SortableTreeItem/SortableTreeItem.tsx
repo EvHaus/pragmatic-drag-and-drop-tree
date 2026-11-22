@@ -9,13 +9,13 @@ import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/el
 import type { DragLocationHistory } from '@atlaskit/pragmatic-drag-and-drop/types';
 import { Fragment, useCallback, useEffect, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import type { Instruction, ItemMode } from '../tree-item-hitbox.js';
+import type { Instruction, ItemMode } from '../tree-item-hitbox';
 import {
 	applyInstructionBlock,
 	attachInstruction,
 	extractInstruction,
 	getInstruction,
-} from '../tree-item-hitbox.js';
+} from '../tree-item-hitbox';
 import type {
 	DataType,
 	DragStateType,
@@ -23,8 +23,8 @@ import type {
 	IdType,
 	ItemType,
 	PropsType as SharedPropsType,
-} from '../types.js';
-import { delay, getItemMode } from '../utilities.js';
+} from '../types';
+import { delay, getItemMode } from '../utilities';
 
 type PropsType<ID extends IdType, D extends DataType> = {
 	children: SharedPropsType<ID, D>['renderRow'];

@@ -1,8 +1,11 @@
 import { $ } from 'bun';
 
+const declarationDir = '.temp/dts';
+const relativeImportPattern = /from\s+['"]\.\.?\//;
+
 async function build() {
-	// Delete dist folder
-	await $`rm -rf dist`;
+	// Delete dist folder and the intermediate declaration emit
+	await $`rm -rf dist ${declarationDir}`;
 
 	// Generate bundle
 	await Bun.build({
@@ -16,8 +19,18 @@ async function build() {
 		outdir: './dist',
 	});
 
-	// Generate types
+	// Emit per-file declarations, then roll them into one .d.ts with no
+	// relative imports so node16/nodenext consumers can resolve the package.
 	await $`tsc -p tsconfig.build.json`;
+	await $`api-extractor run --local`;
+	await $`rm -rf .temp`;
+
+	const declarations = await Bun.file('./dist/index.d.ts').text();
+	if (relativeImportPattern.test(declarations)) {
+		throw new Error(
+			'dist/index.d.ts still contains a relative import after declaration rollup',
+		);
+	}
 
 	return console.debug('✅ DONE!');
 }

@@ -3,7 +3,7 @@ import type {
 	ElementDragType,
 } from '@atlaskit/pragmatic-drag-and-drop/types';
 import type { JSX } from 'react';
-import type { Instruction } from './tree-item-hitbox.js';
+import type { Instruction } from './tree-item-hitbox';
 
 export type DataType = Record<string, unknown> | undefined;
 export type IdType = string | number;

@@ -2,6 +2,7 @@
 .vscode
 custom.d.ts
 dist
+.temp
 node_modules
 tsconfig.tsbuildinfo
 vite.config.ts

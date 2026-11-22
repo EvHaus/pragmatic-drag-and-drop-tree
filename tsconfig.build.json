@@ -4,10 +4,8 @@
 		"declarationMap": true,
 		"emitDeclarationOnly": true,
 		"incremental": false,
-		"module": "nodenext",
-		"moduleResolution": "nodenext",
 		"noEmit": false,
-		"outDir": "dist",
+		"outDir": ".temp/dts",
 		"rootDir": "src"
 	},
 	"extends": "./tsconfig.json",
