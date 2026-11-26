@@ -40,7 +40,7 @@
 		"tsdown": "0.23.7",
 		"typescript": "7.0.2",
 		"typescript-plugin-css-modules": "5.3.1",
-		"vite": "8.3.8",
+		"vite": "8.4.0",
 		"vite-tsconfig-paths": "6.1.1"
 	},
 	"peerDependencies": {
